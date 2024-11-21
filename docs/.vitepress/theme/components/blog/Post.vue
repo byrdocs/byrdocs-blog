@@ -30,7 +30,7 @@ const author = findByName(props.post.author)
         :href="`${site.base}blog${post.href}`"
       >{{ post.title }}</a>
     </h2>
-    <p class="mb-5 font-light" v-html="post.excerpt" />
+    <div class="mb-5 font-light" v-html="post.excerpt" />
     <div class="flex justify-between items-center">
       <PostAuthor :author="author" />
       <a
