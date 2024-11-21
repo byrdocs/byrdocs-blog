@@ -25,9 +25,6 @@ export default defineConfig({
       md.use(footnote)
     },
   },
-  ignoreDeadLinks: [
-    (_url: string) => true,
-  ],
   themeConfig: {
     footer: {
       message: 'BYR Docs Blog',
