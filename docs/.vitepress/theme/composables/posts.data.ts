@@ -27,13 +27,28 @@ export interface Post {
 declare const data: Post[]
 export { data }
 
+function getMarkdownFiles(directory: string, baseDir: string): string[] {
+  const entries = fs.readdirSync(directory, { withFileTypes: true })
+
+  return entries.flatMap((entry) => {
+    const fullPath = path.join(directory, entry.name)
+    if (entry.isDirectory())
+      return getMarkdownFiles(fullPath, baseDir)
+    else if (entry.isFile() && fullPath.endsWith('.md'))
+      return path.relative(baseDir, fullPath)
+    return []
+  })
+}
+
 async function load(): Promise<Post[]>
 async function load() {
   // eslint-disable-next-line node/prefer-global/process
   md = md || (await createMarkdownRenderer(process.cwd()))
-  return fs
-    .readdirSync(dir)
-    .map(file => getPost(file, dir))
+
+  const markdownFiles = getMarkdownFiles(dir, dir)
+
+  return markdownFiles
+    .map((file: string) => getPost(file, dir))
     .sort((a, b) => b.date.time - a.date.time)
 }
 
