@@ -1,241 +1,48 @@
 ---
-date: 2022-08-10
-title: Basic Markdown Formatting
-category: Tutorial
-tags: vue
+date: 2024-11-22 00:36
+title: balabala
+category: 公告
+author: cppHusky
 
 ---
 
-The Ultimate Guide to Markdown. __This will also be bold__
+balabala
 
 ---
 
 <PostDetail>
 
-## Markdown Formatting
+## 前言
 
-### Headings
+承蒙各位用户一直以来的关注和支持，如今 BYR Docs 项目已经顺利运行了半年有余。
 
-    # This is an <h1> tag
-    ## This is an <h2> tag
-    ### This is an <h3> tag
-    #### This is an <h4> tag
-    ##### This is an <h5> tag
-    ###### This is an <h6> tag
+BYR Docs 的建立来自于一个很简单的构想——整理QQ群中杂乱的文件，方便群友查找；否则，大家都只能靠问群友来获取资料。起初我只是把群文件重命名，但很快就发现以QQ群为平台有太多弊端[^1]，这种做法于事无补。其实，我更希望做成类似 Z-Library 或 BYRPT 那样的网站，只要为文件记录好「元信息」，用户就可以通过这些信息，更精准地搜索和筛选文件——于是就有了这个计划。
 
-### Emphasis
+这项计划得到了一些人的支持，也有朋友愿意来帮我搭建网站，于是，byrdocs.org ——这个被我们寄予厚望的网站就此建立。
 
-    *This text will be italic*
-    _This will also be italic_
-    
-    **This text will be bold**
-    __This will also be bold__
-    
-    _You **can** combine them_
+我的雄心还不止于此。在群文件之外，我还四处收集资料，去芜存菁；设置电子书愿望单，自行购买纸质书并委托相关人士扫描；通过不同途径收集近年试题，成果卓著[^2]。
 
-Result:
+现如今，BYR Docs 网站已存有 340 余份电子书、290 余份历年试题及 90 余份复习资料，服务数千位北邮学生近 21 万次[^4]，是开学后、考试前[^5]大家获取电子资料的重要渠道。
 
-*This text will be italic*
+接下来我们的工作计划包含两个方面：
 
-_This will also be italic_
+其一，调整和优化目前的工作流程。我们将为用户提供向 BYR Docs 上传文件的渠道。此前，用户若要向网站提供文件，必须先将文件发送给我本人，再由本人上传和录入元信息；现在，用户可以使用我们提供的命令行工具，自行上传本地文件及修改元信息。
 
-**This text will be bold**
+其二，建设一个「考题维基」页面。这是「考题补完计划」的延伸版。我们会使用 MediaWiki 建设一个维基网站，用来收录近 5 年的真题。所有校内学生都可以访问这个页面，自由地阅读题目和答案。如果你还依稀记得考过的试题，不妨把它编辑进来；如果你知道某道题目的答案，也可以把它添加上去。相信这个计划可以帮到所有想要寻找近年真题的同学。
 
-__This will also be bold__
+我们还有一些远期规划，也会根据接下来项目的发展情况，调整我们的计划。这里就不再赘述。
 
-_You **can** combine them_
+最后，如果你也想帮助我们完成这些计划的话——期待你可以加入我们的项目！我们目前缺少以下人手：
 
-### Lists
+-   整理文件和元信息（目前有巨量待整理文件，远非我一人可以完成）
+-   Wiki开发及维护（需要有维基编辑经验乃至管理经验者，或对前端较为熟悉者）
 
-**Inordered:**
+[^1]: QQ群文件不便于分类、设标签和记录元信息，亦不便于查找和筛选。且从实际效果来看，无论是否为文件重命名，都罕有群友有搜索群文件的习惯；想要文件时先在群里问的现象仍是常态。
 
-    * Milk
-    * Bread
-        * Wholegrain
-    * Butter
+[^2]: 2024年春季学期以来，本项目共收到了不少于15份当学期考试真题。本学期我们也陆续收到了一些期中考试真题。本站试题库仍在继续更新......
 
-Result:
+[^4]: 截至发稿时，本站记录的下载量为207678次。
 
-* Milk
-* Bread
-    * Wholegrain
-* Butter
-
-**Ordered:**
-
-    1. Tidy the kitchen  
-    2. Prepare ingredients  
-    3. Cook delicious things
-
-Result:
-
-1. Tidy the kitchen
-2. Prepare ingredients
-3. Cook delicious things
-
-### Images
-
-    ![Alt Text](url)
-
-Result:
-
-![m'lady](https://i.imgur.com/v8IVDka.jpg)
-
-### Links
-
-    [link](https://github.com/sfxcode/vitepress-blog-starter)
-
-Result:
-
-[link](https://www.github.com)
-
-### Blockquotes
-
-    As Kanye West said:
-
-    > We're living the future so
-    > the present is our past.
-
-Result:
-
-As Kanye West said:
-> We're living the future so
-> the present is our past.
-
-### Horizontal Rules
-
-    ---
-
-Result:
-
----
-
-### Code Snippets
-
-    Indenting by 4 spaces will turn an entire paragraph into a code-block.
-
-Result:
-
-    .my-link {
-        text-decoration: underline;
-    }
-
-### Reference Lists & Titles
-
-    **The quick brown [fox][1], jumped over the lazy [dog][2].**
-
-    [1]: https://en.wikipedia.org/wiki/Fox "Wikipedia: Fox"
-    [2]: https://en.wikipedia.org/wiki/Dog "Wikipedia: Dog"
-
-Result:
-
-**The quick brown [fox][1], jumped over the lazy [dog][2].**
-
-[1]: https://en.wikipedia.org/wiki/Fox "Wikipedia: Fox"
-
-[2]: https://en.wikipedia.org/wiki/Dog "Wikipedia: Dog"
-
-### Escaping
-
-    \*literally\*
-
-Result:
-
-\*literally\*
-
-### Embedding HTML
-
-    <button class="button-save large">Big Fat Button</button>
-
-Result:
-
-<button class="button-save large">Big Fat Button</button>
-
-## Advanced Markdown
-
-Note: Some syntax which is not standard to native Markdown. They're extensions of the language.
-
-### Strike-throughs
-
-    ~~deleted words~~
-
-Result:
-
-~~deleted words~~
-
-## GitHub Flavored Markdown
-
-### Syntax Highlighting
-
-    ```javascript
-    function fancyAlert(arg) {
-      if(arg) {
-        $.facebox({div:'#foo'})
-      }
-    }
-    ```
-
-Result:
-
-```javascript
-function fancyAlert(arg) {
-    if (arg) {
-        $.facebox({div: '#foo'})
-    }
-}
-```
-
-### Task Lists
-
-    - [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
-    - [x] list syntax required (any unordered or ordered list supported)
-    - [x] this is a complete item
-    - [ ] this is an incomplete item
-
-Result:
-
-- [x] @mentions, #refs, [links](https://www.github.com), **formatting**, and <del>tags</del> supported
-- [x] list syntax required (any unordered or ordered list supported)
-- [x] this is a complete item
-- [ ] this is an incomplete item
-
-### Tables
-
-You can create tables by assembling a list of words and dividing them with hyphens `-` (for the first row), and then
-separating each column with a pipe `|`:
-
-| First Header                | Second Header                |
-|-----------------------------|------------------------------|
-| Content from cell 1         | Content from cell 2          |
-| Content in the first column | Content in the second column |
-
-### SHA references
-
-Any reference to a commit’s SHA-1 hash will be automatically converted into a link to that commit on GitHub.
-
-    16c999e8c71134401a78d4d46435517b2271d6ac
-    mojombo@16c999e8c71134401a78d4d46435517b2271d6ac
-    mojombo/github-flavored-markdown@16c999e8c71134401a78d4d46435517b2271d6ac
-
-### Issue references within a repository
-
-Any number that refers to an Issue or Pull Request will be automatically converted into a link.
-
-    #1
-    mojombo#1
-    mojombo/github-flavored-markdown#1
-
-### Username @mentions
-
-Typing an `@` symbol, followed by a username, will notify that person to come and view the comment. This is called an
-“@mention”, because you’re mentioning the individual. You can also @mention teams within an organization.
-
-### Emoji
-
-GitHub supports emoji! Check out the [Emoji Cheat Sheet](https://github.com/sfxcode/vitepress-blog-starter).
-
-## References
-
-* https://guides.github.com/features/mastering-markdown/
+[^5]: 后台数据显示，网站访问的高峰期为以下几个时段：6月中下旬、9月初和10月底到11月初。
 
 </PostDetail>

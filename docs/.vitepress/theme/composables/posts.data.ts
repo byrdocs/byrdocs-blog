@@ -3,6 +3,7 @@ import path from 'node:path'
 import type { MarkdownRenderer } from 'vitepress'
 import { createMarkdownRenderer } from 'vitepress'
 import { formatDistance } from 'date-fns'
+import { zhCN } from 'date-fns/locale/zh-CN'
 import useBlogFile from './useBlogFile'
 
 let md: MarkdownRenderer
@@ -28,6 +29,7 @@ export { data }
 
 async function load(): Promise<Post[]>
 async function load() {
+  // eslint-disable-next-line node/prefer-global/process
   md = md || (await createMarkdownRenderer(process.cwd()))
   return fs
     .readdirSync(dir)
@@ -68,15 +70,13 @@ function formatDate(date: string | Date): Post['date'] {
   if (!(date instanceof Date))
     date = new Date(date)
 
-  date.setUTCHours(12)
-
   return {
     time: +date,
-    string: date.toLocaleDateString('en-US', {
+    string: date.toLocaleDateString('zh-CN', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     }),
-    since: formatDistance(date, new Date(), { addSuffix: true }),
+    since: formatDistance(date, new Date(), { addSuffix: true, locale: zhCN }),
   }
 }

@@ -15,9 +15,9 @@ const author = findByName(props.post.author)
 
 <template>
   <article
-    class="p-6 rounded-lg border border-[color:var(--vp-c-brand-light)] shadow-md dark:border-[color:var(--vp-c-brand-dark)]"
+    class="p-6 rounded-lg border border-[color:var(--vp-c-brand-light)] transition-all dark:border-[color:var(--vp-c-brand-dark)] dark:shadow-[color:#181818]"
   >
-    <div class="flex justify-between items-center mb-5 text-gray-500">
+    <div class="flex justify-between items-center text-gray-500">
       <span
         class="bg-primary-100 text-[color:var(--vp-c-brand-light)] dark:text-[color:var(--vp-c-brand-dark)] text-sm font-medium inline-flex items-center rounded"
       >
@@ -37,7 +37,7 @@ const author = findByName(props.post.author)
         :href="`${site.base}blog${post.href}`"
         class="inline-flex items-center font-medium hover:text-[color:var(--vp-c-brand-dark)]"
       >
-        Read more
+        阅读更多
         <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path
             fill-rule="evenodd"
@@ -50,4 +50,9 @@ const author = findByName(props.post.author)
   </article>
 </template>
 
-<style scoped></style>
+<style scoped>
+.vp-doc h1, h2, h3, hr {
+  margin: 0px 0 0 0;
+  padding-top: 0px;
+}
+</style>

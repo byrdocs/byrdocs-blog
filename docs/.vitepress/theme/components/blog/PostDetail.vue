@@ -1,54 +1,71 @@
 <script setup lang="ts">
-import { useData } from 'vitepress'
 import usePosts from '../../composables/usePosts'
 import useAuthors from '../../composables/useAuthors'
 
-const { site } = useData()
-
-const { currentPost: post, path, prevPost, nextPost } = usePosts()
+const { currentPost: post } = usePosts()
 const { findByName } = useAuthors()
 const author = findByName(post.value.author)
 </script>
 
 <template>
   <div>
+    <div class="flex justify-between items-center mt-2 text-gray-500 group">
+      <a
+        href="/"
+        class="inline-flex items-center font-medium dark:text-white hover:text-[color:var(--vp-c-brand-dark)]"
+      >
+        <div class="i-bx:arrow-back mr-2 group-hover:-translate-x-1 transition-transform" />
+        <span>返回</span>
+      </a>
+      <span class="bg-primary-100 text-sm font-medium inline-flex items-center rounded">
+        <PostIcon :post="post" />
+      </span>
+    </div>
     <div>
-      <div class="flex justify-between items-center mb-1 text-gray-500">
-        <PostAuthor :author="author" />
-
-        <span
-          class="bg-primary-100  text-sm font-medium inline-flex items-center rounded"
-        >
-          <PostIcon :post="post" /></span>
-        <span class="text-sm">{{ post.date.since }}</span>
-      </div>
-      <h3 class="mb-2 mt-2 text-2xl font-bold tracking-tight text-[color:var(--vp-c-brand-light)] dark:text-[color:var(--vp-c-brand-dark)]">
+      <h1
+        class="text-2xl font-bold tracking-tight text-[color:var(--vp-c-brand-light)] dark:text-[color:var(--vp-c-brand-dark)]"
+      >
         <span>{{ post.title }}</span>
-      </h3>
-      <div class="flex justify-between items-center mt-2 text-gray-500">
-        <a
-          v-if="prevPost" :href="`${site.base}blog${prevPost.href}`"
-          class="inline-flex items-center font-medium dark:text-white hover:text-[color:var(--vp-c-brand-dark)]"
-        >
-          <div class="i-bx:arrow-back mr-2" />
-          <span>Previous Post</span>
-        </a>
-        <div v-if="!prevPost" />
-        <a
-          v-if="nextPost" :href="`${site.base}blog${nextPost.href}`"
-          class="inline-flex items-center font-medium dark:text-white hover:text-[color:var(--vp-c-brand-dark)]"
-        >
-          <span>Next Post</span>
-          <div class="i-bx:right-arrow-alt ml-2" />
-        </a>
+      </h1>
+      <div class="flex justify-between items-center text-gray-500">
+        <PostAuthor :author="author" />
+        <span v-if="Date.now() - post.date.time < 86400 * 7 * 1000" :title="post.date.string" class="text-sm">{{
+          post.date.since }}</span>
+        <span v-else :title="post.date.since" class="text-sm">{{ post.date.string }}</span>
       </div>
+      <hr>
     </div>
     <slot />
   </div>
 </template>
 
-<style scoped>
-.vp-doc h1, h2, h3, hr {
-  margin: 12px 0 0 0;
+<style>
+.vp-doc h2 {
+  border-top: none;
+}
+
+.vp-doc h1 {
+  margin: 24px 0;
+}
+
+.vp-doc h2 {
+  margin: 12px 0;
+}
+
+.vp-doc h3 {
+  margin: 6px 0;
+}
+
+footer.VPDocFooter {
+  display: none;
+}
+
+div.content {
+  padding-bottom: 0px !important;
+}
+
+.vp-doc>div> :not(div):nth-child(1),
+.vp-doc>div> :not(div):nth-child(2) {
+  display: none;
 }
 </style>

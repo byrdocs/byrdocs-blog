@@ -1,42 +1,84 @@
 import Unocss from 'unocss/vite'
-import { defineConfig } from 'vitepress'
-import { version } from '../../package.json'
+import { defineConfig as _defineConfig } from 'vitepress'
+import footnote from 'markdown-it-footnote'
+
+type Config = ReturnType<typeof _defineConfig> & {
+  themeConfig: {
+    blog: {
+      title: string
+      description: string
+    }
+  }
+}
+
+function defineConfig(config: Config) {
+  return _defineConfig(config)
+}
 
 export default defineConfig({
-  base: '/vitepress-blog-starter/',
   description: 'Blog included. Built on top of VitePress and UnoCSS.',
   markdown: {
     headers: {
       level: [0, 0],
     },
+    config: (md) => {
+      md.use(footnote)
+    },
   },
   themeConfig: {
     footer: {
-      message: 'VitePress Blog Starter',
-      copyright: 'Copyright © 2023 SFXCode',
+      message: 'BYR Docs Blog',
+      copyright: 'Copyright © 2024 BYR Docs',
+    },
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/byrdocs' },
+    ],
+    blog: {
+      title: 'BYR Docs Blog',
+      description: 'BYR Docs 的最新动态',
+    },
+    outline: {
+      label: '页面导航',
+    },
+    returnToTopLabel: '返回顶部',
+    sidebarMenuLabel: '菜单',
+    darkModeSwitchLabel: '主题',
+    lightModeSwitchTitle: '切换到浅色主题',
+    darkModeSwitchTitle: '切换到深色主题',
+    notFound: {
+      title: '找不到此页面',
+      linkText: '返回主页',
+      quote: '',
     },
     search: {
       provider: 'local',
+      options: {
+        translations: {
+          button: {
+            buttonText: '搜索文档',
+            buttonAriaLabel: '搜索文档',
+          },
+          modal: {
+            noResultsText: '无法找到',
+            resetButtonTitle: '清除查询条件',
+            footer: {
+              selectText: '选择',
+              navigateText: '切换',
+              closeText: '关闭',
+            },
+          },
+        },
+      },
     },
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/sfxcode/vitepress-blog-starter' },
+    docFooter: { prev: '上一篇', next: '下一篇' },
+    nav: [
+      { text: '主页', link: '/' },
+      { text: '关于', link: 'https://byrdocs.org/about' },
+      { text: '主站', link: 'https://byrdocs.org' },
     ],
-    editLink: {
-      pattern: 'https://github.com/sfxcode/vitepress-blog-starter/edit/main/docs/:path',
-      text: 'Edit this page on GitHub',
-    },
-    nav: nav(),
-    sidebar: {
-      '/guide/': sidebarGuide(),
-      '/config/': sidebarConfig(),
-    },
-    blog: {
-      title: 'My Blog',
-      description: 'Some articles for sample Blog',
-    },
 
   },
-  title: 'VitePress Blog Starter',
+  title: 'BYR Docs Blog',
   vite: {
     plugins: [
       Unocss({
@@ -45,64 +87,3 @@ export default defineConfig({
     ],
   },
 })
-
-function nav() {
-  return [
-    { text: 'Guide', link: '/guide/', activeMatch: '/guide/' },
-    { text: 'Configs', link: '/config/', activeMatch: '/config/' },
-    { text: 'Blog', link: '/blog/', activeMatch: '/blog/' },
-    {
-      text: 'External Docs',
-      items: [
-        {
-          text: 'Vitepress',
-          link: 'https://vitepress.vuejs.org',
-        },
-        {
-          text: 'UnoCSS',
-          link: 'https://uno.antfu.me',
-        },
-      ],
-    },
-    {
-      text: version,
-      items: [
-        {
-          text: 'Changelog',
-          link: 'https://github.com/sfxcode/vitepress-blog-starter/blob/main/CHANGELOG.md',
-        },
-      ],
-    },
-  ]
-}
-
-function sidebarGuide() {
-  return [
-    {
-      text: 'Introduction',
-      collapsible: true,
-      items: [
-        { text: 'What is this?', link: '/guide/' },
-      ],
-    },
-    {
-      text: 'Features',
-      collapsible: true,
-      items: [
-        { text: 'UnoCSS', link: '/guide/features/unocss' },
-      ],
-    },
-  ]
-}
-
-function sidebarConfig() {
-  return [
-    {
-      text: 'Config',
-      items: [
-        { text: 'Introduction', link: '/config/' },
-        { text: 'UnoCSS', link: '/config/unocss' },
-      ],
-    },
-  ]
-}
