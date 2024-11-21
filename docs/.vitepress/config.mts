@@ -24,6 +24,7 @@ export default defineConfig({
     config: (md) => {
       md.use(footnote)
     },
+    linkify: false,
   },
   themeConfig: {
     footer: {
