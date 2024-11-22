@@ -10,6 +10,8 @@ author: cppHusky
 
 ---
 
+<PostDetail>
+
 以往，BYR Docs 的文件都由我一人来管理。文件的处理、上传和元信息的整理都由我一个人进行。
 
 如果有用户希望向我们提供文件，就必须先将文件发送给我本人，再由本人上传和录入元信息。这样才能让其他人搜到。
@@ -18,4 +20,6 @@ author: cppHusky
 
 以后，用户将可以通过我们提供的命令行工具（byrdocs-cli）来自行上传本地文件，不必发送给我，也不必等候我漫长的处理。如果你有什么新资源想要发送给我们，只需根据我们的 [贡献指南](https://github.com/byrdocs/byrdocs-archive/blob/master/CONTRIBUTING.md) 一步步走就可以了。
 
-当然，如果你愿意加入我们的团队，帮助我们审核和整理文件，我们也十分欢迎。更多相关资讯请移步 [周公吐哺](https://byrdocs-blog.pages.dev/blog/posts/thirsty-for-talents.html) 查看。
+当然，如果你愿意加入我们的团队，帮助我们审核和整理文件，我们也十分欢迎。更多相关资讯请移步 [周公吐哺](../posts/thirsty-for-talents.md) 查看。
+
+</PostDetail>
