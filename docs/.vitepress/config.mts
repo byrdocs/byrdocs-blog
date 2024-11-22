@@ -76,9 +76,15 @@ export default defineConfig({
       { text: '关于', link: 'https://byrdocs.org/about' },
       { text: '主站', link: 'https://byrdocs.org' },
     ],
-
   },
   title: 'BYR Docs Blog',
+  head: [
+    ['link', { rel: 'icon', type: 'image/png', href: '/logo_512.png' }],
+    ['link', { rel: 'apple-touch-icon', type: 'image/png', href: '/logo_512.png' }],
+    ['meta', { name: 'description', content: 'BYR Docs 的最新动态。BYR Docs：北京邮电大学资料分享平台，旨在使校内学生更方便地获取与北邮课程有关的教育资源，包括电子书籍、考试题目和复习资料等。' }],
+    ['meta', { name: 'keywords', content: '北邮, 北京邮电大学, 资料, 电子书籍, 考试题目, 复习资料' }],
+    ['meta', { name: 'author', content: 'BYR Docs' }],
+  ],
   vite: {
     plugins: [
       Unocss({

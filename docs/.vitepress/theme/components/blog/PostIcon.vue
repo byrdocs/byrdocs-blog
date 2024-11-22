@@ -10,10 +10,11 @@ const category: string = props.post.data.category ? props.post.data.category : '
 
 <template>
   <div class="flex">
-    <div v-if="category === 'Article'" class="i-heroicons-outline-book-open mr-[2px] mt-[2px]" />
-    <div v-if="category === 'Tutorial'" class="i-heroicons-outline-academic-cap mr-[2px] mt-[2px]" />
-    <div v-if="category === 'Document'" class="i-heroicons-outline-document mr-[2px] mt-[2px]" />
-    <div v-if="category === '公告'" class="i-heroicons-outline-megaphone mr-[2px] mt-[2px]" />
+    <div v-if="category === 'Article'" class="i-heroicons-outline-book-open mr-[3px] mt-[2px]" />
+    <div v-if="category === 'Tutorial'" class="i-heroicons-outline-academic-cap mr-[3px] mt-[2px]" />
+    <div v-if="category === 'Document'" class="i-heroicons-outline-document mr-[3px] mt-[2px]" />
+    <div v-if="category === '公告'" class="i-heroicons-outline-megaphone mr-[3px] mt-[2px]" />
+    <div v-if="category === '杂记'" class="i-heroicons-outline-chat-bubble-left-ellipsis mr-[3px] mt-[2px]" />
     <span>{{ category }}</span>
   </div>
 </template>

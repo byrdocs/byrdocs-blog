@@ -1,7 +1,7 @@
 ---
 date: 2024-11-22 14:55
 title: BYR Docs 的初衷与未来
-category: 公告
+category: 杂记
 author: cppHusky
 
 ---
