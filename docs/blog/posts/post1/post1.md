@@ -6,7 +6,7 @@ author: cppHusky
 
 ---
 
-balabala
+本次我们将发布两个重要更新：**文件上传功能** 和 **考题维基项目**。我们也希望有更多人参与到我们的项目之中，帮助我们做的更好。
 
 ---
 
@@ -63,6 +63,10 @@ BYR Docs 的建立来自于一个很简单的构想——整理QQ群中杂乱的
 试题录入人员的职责是收集现有的各种类型的真题资源（包括电子版和我们收到的纸质版），并用 Wikitext 将它们录入考题维基。
 
 Wikitext 语法和 Markdown/HTML/Typst 等不太一致，但并不难学！即便未曾学过，也可以较快上手。
+
+## 联系我们
+
+欢迎通过电子邮件 [contact@byrdocs.org](mailto:contact@byrdocs.org) 与我们联系。你也可以加入我们的 [QQ 群](https://qm.qq.com/cgi-bin/qm/qr?k=qv9lHWDHq-1alHIoT000jrUth_lWurwv)。
 
 [^1]: QQ群文件不便于分类、设标签和记录元信息，亦不便于查找和筛选。且从实际效果来看，无论是否为文件重命名，都罕有群友有搜索群文件的习惯；想要文件时先在群里问的现象仍是常态。
 
