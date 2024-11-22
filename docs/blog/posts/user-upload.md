@@ -1,12 +1,12 @@
 ---
 date: 2024-11-22 20:43
-title: 更新：支持用户上传文件
-category: 公告
+title: 提供用户上传文件的渠道
+category: 更新
 author: cppHusky
 
 ---
 
-接下来，我们将为用户提供向 BYR Docs 上传文件的渠道。
+我们为同学提供了向 BYR Docs 上传文件的渠道。方便多人协作、共同贡献。
 
 ---
 
@@ -20,6 +20,6 @@ author: cppHusky
 
 以后，用户将可以通过我们提供的命令行工具（byrdocs-cli）来自行上传本地文件，不必发送给我，也不必等候我漫长的处理。如果你有什么新资源想要发送给我们，只需根据我们的 [贡献指南](https://github.com/byrdocs/byrdocs-archive/blob/master/CONTRIBUTING.md) 一步步走就可以了。
 
-当然，如果你愿意加入我们的团队，帮助我们审核和整理文件，我们也十分欢迎。更多相关资讯请移步 [周公吐哺](../posts/thirsty-for-talents.md) 查看。
+当然，如果你愿意加入我们的团队，帮助我们审核和整理文件，我们也十分欢迎。更多相关资讯请移步 [周公吐哺——BYR Docs 志愿者招募](../posts/thirsty-for-talents.md) 查看。
 
 </PostDetail>
