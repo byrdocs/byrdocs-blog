@@ -8,12 +8,11 @@ const author = findByName(post.value.author)
 </script>
 
 <template>
-  <div>
+  <article id="byrdocs-article">
     <div class="flex justify-between items-center mt-2 text-gray-500 group">
       <a
         href="/"
-        class="inline-flex items-center font-medium dark:text-white hover:text-[color:var(--vp-c-brand-dark)]"
-      >
+        class="inline-flex items-center font-medium dark:text-white hover:text-[color:var(--vp-c-brand-dark)]">
         <div class="i-bx:arrow-back mr-2 group-hover:-translate-x-1 transition-transform" />
         <span>返回</span>
       </a>
@@ -23,8 +22,7 @@ const author = findByName(post.value.author)
     </div>
     <div>
       <h1
-        class="text-2xl font-bold tracking-tight text-[color:var(--vp-c-brand-light)] dark:text-[color:var(--vp-c-brand-dark)]"
-      >
+        class="text-2xl font-bold tracking-tight text-[color:var(--vp-c-brand-light)] dark:text-[color:var(--vp-c-brand-dark)]">
         <span>{{ post.title }}</span>
       </h1>
       <div class="flex justify-between items-center text-gray-500">
@@ -36,7 +34,7 @@ const author = findByName(post.value.author)
       <hr>
     </div>
     <slot />
-  </div>
+  </article>
 </template>
 
 <style>
@@ -64,8 +62,11 @@ div.content {
   padding-bottom: 0px !important;
 }
 
-.vp-doc>div> :not(div):nth-child(1),
-.vp-doc>div> :not(div):nth-child(2) {
+.VPDoc .vp-doc>div>*:not(#byrdocs-article) {
   display: none;
+}
+
+.VPDoc .vp-doc>div>#byrdocs-article~* {
+  display: block;
 }
 </style>
