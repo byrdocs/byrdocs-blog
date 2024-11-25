@@ -78,7 +78,7 @@ byrdocs login # 输入此命令以登录
 未检测到登录信息，正在请求登录...
 请在浏览器中访问以下链接进行登录:
     https://byrdocs.org/auth/*/byrdocs-cli
-登录成功，凭证已保存到 /home/youxam/.config/byrdocs/token
+登录成功，凭证已保存到 /home/cpphusky/.config/byrdocs/token
 ```
 
 更多帮助请使用 `byrdocs -h` 查看。
