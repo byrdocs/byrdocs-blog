@@ -1,6 +1,11 @@
+/* eslint-disable node/prefer-global/process */
+import fs from 'node:fs'
+import path from 'node:path'
+import { Feed } from 'feed'
+import matter from 'gray-matter'
 import footnote from 'markdown-it-footnote'
 import Unocss from 'unocss/vite'
-import { defineConfig as _defineConfig } from 'vitepress'
+import { defineConfig as _defineConfig, createMarkdownRenderer } from 'vitepress'
 
 type Config = ReturnType<typeof _defineConfig> & {
   themeConfig: {
@@ -15,8 +20,18 @@ function defineConfig(config: Config) {
   return _defineConfig(config)
 }
 
+const pages: Array<{
+  title: string
+  excerpt: string
+  url: string
+  date: string
+  author: string
+}> = []
+
+const description = 'BYR Docs 的最新动态。BYR Docs：北京邮电大学资料分享平台，旨在使校内学生更方便地获取与北邮课程有关的教育资源，包括电子书籍、考试题目和复习资料等。'
+
 export default defineConfig({
-  description: 'Blog included. Built on top of VitePress and UnoCSS.',
+  description,
   markdown: {
     headers: {
       level: [0, 0],
@@ -24,6 +39,66 @@ export default defineConfig({
     config: (md) => {
       md.use(footnote)
     },
+  },
+  async buildEnd({ outDir }) {
+    const md = (await createMarkdownRenderer(process.cwd()))
+
+    const feed = new Feed({
+      title: 'BYR Docs Blog',
+      description,
+      id: 'https://blog.byrdocs.org/',
+      link: 'https://blog.byrdocs.org/',
+      image: 'https://byrdocs.org/og.png',
+      favicon: 'https://blog.byrdocs.org/logo_512.png',
+      copyright: `All rights reserved ${new Date().getFullYear()}, BYR Docs`,
+      updated: pages.map(page => new Date(page.date)).reduce((a, b) => a > b ? a : b),
+      generator: 'BYR Docs Blog Feed',
+      feedLinks: {
+        json: 'https://blog.byrdocs.org/feed.json',
+        atom: 'https://blog.byrdocs.org/feed.atom',
+        rss: 'https://blog.byrdocs.org/feed.xml',
+      },
+      author: {
+        name: 'BYR Docs',
+        email: 'contact@byrdocs.org',
+        link: 'https://github.com/byrdocs',
+      },
+    })
+
+    pages.forEach((page) => {
+      feed.addItem({
+        title: page.title,
+        id: page.url,
+        link: page.url,
+        date: new Date(page.date),
+        description: page.excerpt && md.render(page.excerpt),
+        author: [{ name: page.author }],
+      })
+    })
+
+    fs.writeFileSync(
+      path.join(outDir, 'feed.json'),
+      feed.json1(),
+    )
+    fs.writeFileSync(
+      path.join(outDir, 'feed.atom'),
+      feed.atom1(),
+    )
+    fs.writeFileSync(
+      path.join(outDir, 'feed.xml'),
+      feed.rss2(),
+    )
+  },
+  transformHtml: (_, id, ctx) => {
+    const src = path.join(process.cwd(), 'docs', ctx.page)
+    if (ctx.page === '404.md' || !ctx.pageData.relativePath.startsWith('blog/posts/'))
+      return
+    const { data, excerpt } = matter(fs.readFileSync(src, 'utf-8'), { excerpt: true })
+    pages.push({
+      ...data,
+      excerpt: excerpt || '...',
+      url: new URL(ctx.pageData.relativePath.replace(/(^|\/)(.*?)\.md$/, '$2.html'), 'https://blog.byrdocs.org').toString(),
+    } as any)
   },
   themeConfig: {
     footer: {
@@ -82,13 +157,14 @@ export default defineConfig({
       { text: '主页', link: '/' },
       { text: '关于', link: 'https://byrdocs.org/about' },
       { text: '主站', link: 'https://byrdocs.org' },
+      { text: '订阅', link: '/feed.html' },
     ],
   },
   title: 'BYR Docs Blog',
   head: [
     ['link', { rel: 'icon', type: 'image/png', href: '/logo_512.png' }],
     ['link', { rel: 'apple-touch-icon', type: 'image/png', href: '/logo_512.png' }],
-    ['meta', { name: 'description', content: 'BYR Docs 的最新动态。BYR Docs：北京邮电大学资料分享平台，旨在使校内学生更方便地获取与北邮课程有关的教育资源，包括电子书籍、考试题目和复习资料等。' }],
+    ['meta', { name: 'description', content: description }],
     ['meta', { name: 'keywords', content: '北邮, 北京邮电大学, 资料, 电子书籍, 考试题目, 复习资料' }],
     ['meta', { name: 'author', content: 'BYR Docs' }],
   ],
