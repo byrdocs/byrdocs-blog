@@ -6,15 +6,31 @@ author: cppHusky
 
 ---
 
-我将以一份「计算机组成原理」试题文件为例，介绍如何整理试题文件。
+以一份「计算机组成原理」试题文件为例，介绍如何整理试题文件。
 
 ---
+
+<PostDetail>
+
+## 前言
+
+以往，BYR Docs 的文件都由我一人来管理。文件的处理、上传和元信息的整理都由我一个人进行。
+
+如果有用户希望向我们提供文件，就必须先将文件发送给我本人，再由本人上传和录入元信息。这样才能让其他人搜到。
+
+但是，随着时间推移，我需要处理越来越多的琐事，便很少再有闲暇来逐个处理文件。本站响应用户提交文件的速度越来越慢，用户手中的文件也无法尽快上传和分享，成了迫在眉睫的问题。
+
+以后，用户将可以通过我们提供的命令行工具（[byrdocs-cli](https://github.com/byrdocs/byrdocs-cli)）来自行上传本地文件，不必发送给我，也不必等候我漫长的处理。如果你有什么新资源想要发送给我们，只需根据我们的 [贡献指南](https://github.com/byrdocs/byrdocs-archive/blob/master/CONTRIBUTING.md) 一步步走就可以了。
+
+当然，如果你愿意加入我们的团队，帮助我们审核和整理文件，我们也十分欢迎。更多相关资讯请移步 [周公吐哺——BYR Docs 志愿者招募](../thirsty-for-talents.md) 查看。
+
+下面，我以一份计算机组成原理的试题文件为例，介绍如何整理试题文件。
 
 ## 准备工作
 
 ### 准备好需要上传的试题
 
-如果你手中有需要上传的试题，请直接跳转 [使用 BYRDOCS 命令行工具](#使用-byrdocs-命令行工具)。
+如果你手中有需要上传的试题，请直接跳转 [使用 BYR Docs 命令行工具](#使用-byr-docs-命令行工具)。
 
 如果你手中没有需要上传的试题，只是想帮助我们整理文件的话，那么你可以从 [待上传和整理的文件](https://github.com/orgs/byrdocs/discussions/8) 中挑选一些试题，下载到本地后再来整理。
 
@@ -24,15 +40,18 @@ author: cppHusky
 
 现在我选择了 [bupt-cs-gallery/计算机组成原理/往年题](https://github.com/faranten/bupt-cs-gallery/tree/main/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E5%BE%80%E5%B9%B4%E9%A2%98) 作为接下来我要整理的文件夹，所以我在讨论区发了[这条评论](https://github.com/orgs/byrdocs/discussions/8#discussioncomment-11362309)。
 
-### 使用 BYRDOCS 命令行工具
+![评论](./comment.png)
 
-如果你有想要上传的文件，你需要通过一个名为 `byrdocs` 的命令行工具来执行上传操作。
+### 使用 BYR Docs 命令行工具
+
+如果你有想要上传的文件，你需要通过一个名为 `byrdocs` 的命令行工具来执行上传操作，详细和最新的使用说明请参考 [byrdocs-cli](https://github.com/byrdocs/byrdocs-cli?tab=readme-ov-file#readme)。
 
 你可以用 `pip` 或 `pipx` 来下载它，以下是我自己的用例：
 
 ```shell
 # Windows Powershell
 pip3 install byrdocs-cli
+
 # Arch Linux
 sudo pacman -S pipx
 pipx install byrdocs-cli
@@ -55,8 +74,11 @@ byrdocs login # 输入此命令以登录
 接下来按照引导，用浏览器打开对应的网址，再在浏览器中完成验证即可。
 
 ```shell
-# 若命令行中显示如下消息，则说明登录成功
-Login successful, token saved to /home/cpphusky/.config/byrdocs/token
+❯ byrdocs login
+未检测到登录信息，正在请求登录...
+请在浏览器中访问以下链接进行登录:
+	https://byrdocs.org/auth/*/byrdocs-cli
+登录成功，凭证已保存到 /home/youxam/.config/byrdocs/token
 ```
 
 更多帮助请使用 `byrdocs -h` 查看。
@@ -65,7 +87,9 @@ Login successful, token saved to /home/cpphusky/.config/byrdocs/token
 
 我们的元信息存储在 [byrdocs-archive](https://github.com/byrdocs/byrdocs-archive) 中。当你向本站添加文件后，你也应当为它录入相应的元信息，再通过 Pull Request 提交到我们的仓库。
 
-所以，你需要先把本仓库 Fork 到自己的账号中。对于我自己来说，就是 [cppHusky/byrdocs-archive](https://github.com/cppHusky/byrdocs-archive)。
+所以，你需要先把本仓库 [Fork](https://github.com/byrdocs/byrdocs-archive/fork) 到自己的账号中。对于我自己来说，就是 [cppHusky/byrdocs-archive](https://github.com/cppHusky/byrdocs-archive)。
+
+![Fork](./fork.png)
 
 ## 文件上传
 
@@ -103,21 +127,26 @@ pdftk 计组试卷.pdf cat 1-12 output 2010-2011-计组试卷.pdf
 ```shell
 > byrdocs upload 2010-2011-计组试卷.pdf
 Uploading: 100%|████████████████████████████████| 8.60M/8.60M [00:06<00:00, 1.26MB/s]
-File uploaded successfully
-	File URL: https://byrdocs.org/files/8986bcea504b391963c325a0e43bdc59.pdf
+文件上传成功！
+	文件地址: https://byrdocs.org/files/8986bcea504b391963c325a0e43bdc59.pdf
+? 是否立即为该文件录入元信息？ (Y/n) 
 ```
 
 出现这样的信息就代表上传成功了。
 
-接下来会提示我们是否进行元信息录入。如果你想顺便录入此元信息，按下 `Enter` 键即可。
+命令行工具还询问我们是否进行元信息录入，如果你想顺便录入此元信息，按下 `Enter` 键即可。
 
-### 如果显示 `文件已存在`
+### 如果在上传的时候显示 `文件已存在`
 
 首先，你可能忘了[查重](#避免重复)。
 
 另外，有可能其他人上传了文件，但使用了不规范的名字，导致你没有查到。
 
-> 建议有能力的人通过搜索这个文件的 md5sum 来查看站内是否有这个文件，并确认其命名是否规范。如果发现命名不规范，你可以修改它。
+> 你可以通过搜索这个文件的 md5sum 来查看站内是否有这个文件，并确认其命名是否规范。如果发现命名不规范，你可以修改它。
+>
+> 下图是我在已经发布后搜索这个文件的结果：
+> 
+> ![搜索结果](./search.png)
 
 当然还有一种可能，也有其他人在试图上传这个文件，并且比你快了一步。这时建议你暂缓上传。
 
@@ -131,7 +160,9 @@ File uploaded successfully
 
 ### 类型
 
-当然是「试题」
+当然是「试题」。
+
+![type](./type.png)
 
 ### 学院
 
@@ -139,32 +170,54 @@ File uploaded successfully
 
 但所幸，这个试题的 [来源仓库](https://github.com/faranten/bupt-cs-gallery) 本身是收集计算机学院资源的，所以我们至少知道它是计算机学院的试题。
 
+我们填写上计算机学院的全称（`计算机学院（国家示范性软件学院）`），注意这里可以使用 TAB 进行自动补全。
+
+![school](./school.png)
+
+注意，一个试卷有可能在多个学院进行考试，所以这里可以填写多个学院，每行输入一个学院即可。
+
+按 ESC + Enter 提交并继续。
+
 ### 学段
 
 我们不太清楚这是本科试题还是研究生试题，但是根据仓库的描述，我们估计它是本科生的内容。
 
 这种估计不算是很强的证据，所以我们可填可不填。我本人一般不填（填为「未知」。
 
+![seg](./seg.png)
+
 ### 课程
 
 一目了然，这门课程的名字当然是《计算机组成原理》。
 
+![course](./course.png)
+
 ### 学年
 
-这份试卷的信息记载比较详细，我们可以看出它的起始年为 2010，结束年为 2011，学期为第 1 学期，是期末考试。
+这份试卷的信息记载比较详细，我们可以看出它的起始年为 2010，结束年为 2011，学期为第一学期，是期末考试。
 
-> 如果不知道是期中还是期末考试，填「未知」。
-> 如果不知道是哪个学期的考试，填「未知」。
-> 如果试卷上只写了一个年份，没有其他信息（比如，2020年），那么起始年、结束年都填写为 2020，学期填「未知」。
-> 但是，如果你有任何线索可以辅助自己判断考试时间，那就可以细化一下。比如，若试卷上标注了 2004年6月，那就可以合理猜想，这份试卷是 2003-2004 学年第二学期的期末试题。
+> - 如果不知道是期中还是期末考试，填「未知」。
+> - 如果不知道是哪个学期的考试，填「未知」。
+> - 如果试卷上只写了一个年份，没有其他信息（比如，2020年），那么起始年、结束年都填写为 2020，学期填「未知」。
+> - 但是，如果你有任何线索可以辅助自己判断考试时间，那就可以细化一下。比如，若试卷上标注了 2004年6月，那就可以合理猜想，这份试卷是 2003-2004 学年第二学期的期末试题。
 
-### 提交
+![time](./time.png)
+
+### 文件内容类型
+
+这份试卷包含了原题和答案，所以我们使用空格选择上「原题」和「答案」然后按回车。
+
+![filetype](./filetype.png)
+
+## 提交
 
 确认信息无误后，你就可以提交了。
 
 接下来我们会看到一个 .yml 格式的文件，它的内容是
 
 ```yaml
+# yaml-language-server: $schema=https://byrdocs.org/schema/test.yaml
+
 id: 8986bcea504b391963c325a0e43bdc59
 url: https://byrdocs.org/files/8986bcea504b391963c325a0e43bdc59.pdf
 type: test
@@ -184,6 +237,8 @@ data:
   - 答案
 ```
 
+注意，文件开头的注释 `# yaml-language-server: $schema=https://byrdocs.org/schema/test.yaml` 是为了给直接使用编辑器编辑元信息的人提供自动补全和格式校验功能的，请不要删除。
+
 ## 将元信息推送至 archive
 
 当我们 Fork 好自己的仓库之后，应当先在自己的仓库中修改好元信息，再提 Pull Request。
@@ -193,16 +248,23 @@ data:
 如果你对 Git 操作比较熟悉，我们强烈推荐你使用第二种方法。不会也没关系，这里我以第一种方法为例来讲解。
 
 1. 首先，通过 `Sync fork` 与主仓库同步。
+    ![sync](./sync.png)
 2. 打开 `metadata` 目录，点击 `Add file`->`Upload files`。
+    ![upload](./upload.png)
 3. 上传 .yml 文件（注意，不要上传 PDF！你应当上传的是元信息文件）。
 4. 建议在 `Commit Changes` 之前简单地说明一下你做了什么。比如，我在这里填写的是 `添加 2010-2011学年第1学期《计算机组成原理》期末考试试题`。
-
-接下来，再点击 `Contribute`->`Open pull request`->`Create pull request`。
-
-然后主仓库中就会创建一个 PR。经过管理员审核并通过后，这份试题就可以在网上搜索到了。
+    ![commit](./commit.png)
+5. commit 之后，再点击 `Contribute`->`Open pull request`->`Create pull request`。
+    ![pr](./pr.png)
+    如果有额外的信息，可以在创建 PR 的时候补充。
+    ![cpr](./cpr.png)
+6. PR 创建之后，会自动触发 check，检查元信息格式是否正确、文件是否存在等等。如果没有问题，维护者会合并你的 PR，这份试题就可以在 [byrdocs.org](https://byrdocs.org) 上搜索到了。如果 check 失败，请检查日志中的 `Check` 一项，查看具体错误信息，然后在自己 Fork 的仓库中进行修改，会自动再次运行 check。
 
 ---
 
 以上就是整理试题文件的完整操作。
 
 如果你有想要整理的试题文件，也可以参考这些步骤来完成。
+
+
+</PostDetail>
