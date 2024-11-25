@@ -26,6 +26,7 @@ const pages: Array<{
   url: string
   date: string
   author: string
+  tags?: string[]
 }> = []
 
 const description = 'BYR Docs 的最新动态。BYR Docs：北京邮电大学资料分享平台，旨在使校内学生更方便地获取与北邮课程有关的教育资源，包括电子书籍、考试题目和复习资料等。'
@@ -73,6 +74,12 @@ export default defineConfig({
         date: new Date(page.date),
         description: page.excerpt && md.render(page.excerpt),
         author: [{ name: page.author }],
+        extensions: page.tags && [
+          {
+            name: 'tags',
+            objects: page.tags,
+          },
+        ],
       })
     })
 
