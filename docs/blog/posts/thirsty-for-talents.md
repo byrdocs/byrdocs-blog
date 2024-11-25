@@ -72,7 +72,7 @@ BYR Docs 是纯粹由志愿者构成的非营利组织，且不曾接受任何�
 
 ## 联系我们
 
-欢迎通过电子邮件 [contact@byrdocs.org](mailto:contact@byrdocs.org) 与我们联系。你也可以加入我们的 [QQ 群](https://qm.qq.com/cgi-bin/qm/qr?k=qv9lHWDHq-1alHIoT000jrUth_lWurwv)。
+欢迎通过电子邮件 [contact@byrdocs.org](mailto:contact@byrdocs.org) 与我们联系。你也可以加入我们的 [QQ 群](https://qm.qq.com/cgi-bin/qm/qr?k=FPITWcW4_cBnRr_ow-4Z-xACdH5bonj4)。
 
 [^1]: 据笔者不完全统计，目前可以找到的未整理资料多达数百份，文件大小总量远超10GB。这个数量可能还在持续增长。
 
