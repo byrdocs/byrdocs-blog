@@ -77,7 +77,7 @@ byrdocs login # 输入此命令以登录
 ❯ byrdocs login
 未检测到登录信息，正在请求登录...
 请在浏览器中访问以下链接进行登录:
-	https://byrdocs.org/auth/*/byrdocs-cli
+    https://byrdocs.org/auth/*/byrdocs-cli
 登录成功，凭证已保存到 /home/youxam/.config/byrdocs/token
 ```
 
@@ -128,8 +128,8 @@ pdftk 计组试卷.pdf cat 1-12 output 2010-2011-计组试卷.pdf
 > byrdocs upload 2010-2011-计组试卷.pdf
 Uploading: 100%|████████████████████████████████| 8.60M/8.60M [00:06<00:00, 1.26MB/s]
 文件上传成功！
-	文件地址: https://byrdocs.org/files/8986bcea504b391963c325a0e43bdc59.pdf
-? 是否立即为该文件录入元信息？ (Y/n) 
+    文件地址: https://byrdocs.org/files/8986bcea504b391963c325a0e43bdc59.pdf
+? 是否立即为该文件录入元信息？ (Y/n)
 ```
 
 出现这样的信息就代表上传成功了。
@@ -145,7 +145,7 @@ Uploading: 100%|█████████████████████�
 > 你可以通过搜索这个文件的 md5sum 来查看站内是否有这个文件，并确认其命名是否规范。如果发现命名不规范，你可以修改它。
 >
 > 下图是我在已经发布后搜索这个文件的结果：
-> 
+>
 > ![搜索结果](./search.png)
 
 当然还有一种可能，也有其他人在试图上传这个文件，并且比你快了一步。这时建议你暂缓上传。
@@ -170,7 +170,7 @@ Uploading: 100%|█████████████████████�
 
 但所幸，这个试题的 [来源仓库](https://github.com/faranten/bupt-cs-gallery) 本身是收集计算机学院资源的，所以我们至少知道它是计算机学院的试题。
 
-我们填写上计算机学院的全称（`计算机学院（国家示范性软件学院）`），注意这里可以使用 TAB 进行自动补全。
+我们填写上计算机学院的全称（`计算机学院（国家示范性软件学院）`），这里可以使用 TAB 进行自动补全。
 
 ![school](./school.png)
 
@@ -223,7 +223,7 @@ url: https://byrdocs.org/files/8986bcea504b391963c325a0e43bdc59.pdf
 type: test
 data:
   college:
-  - 计算机学院（国家示范性软件学院）
+    - 计算机学院（国家示范性软件学院）
   course:
     name: 计算机组成原理
   time:
@@ -233,8 +233,8 @@ data:
     stage: 期末
   filetype: pdf
   content:
-  - 原题
-  - 答案
+    - 原题
+    - 答案
 ```
 
 注意，文件开头的注释 `# yaml-language-server: $schema=https://byrdocs.org/schema/test.yaml` 是为了给直接使用编辑器编辑元信息的人提供自动补全和格式校验功能的，请不要删除。
@@ -265,6 +265,5 @@ data:
 以上就是整理试题文件的完整操作。
 
 如果你有想要整理的试题文件，也可以参考这些步骤来完成。
-
 
 </PostDetail>
