@@ -1,9 +1,10 @@
-/* eslint-disable node/prefer-global/process */
-import fs from 'node:fs'
+import fs, { createWriteStream } from 'node:fs'
 import path from 'node:path'
+import process from 'node:process'
 import { Feed } from 'feed'
 import matter from 'gray-matter'
 import footnote from 'markdown-it-footnote'
+import { SitemapStream } from 'sitemap'
 import Unocss from 'unocss/vite'
 import { defineConfig as _defineConfig, createMarkdownRenderer } from 'vitepress'
 
@@ -29,10 +30,13 @@ const pages: Array<{
   tags?: string[]
 }> = []
 
+const links: Array<{ url: string, lastmod: number }> = []
+
 const description = 'BYR Docs 的最新动态。BYR Docs：北京邮电大学资料分享平台，旨在使校内学生更方便地获取与北邮课程有关的教育资源，包括电子书籍、考试题目和复习资料等。'
 
 export default defineConfig({
   description,
+  lastUpdated: true,
   markdown: {
     headers: {
       level: [0, 0],
@@ -95,17 +99,33 @@ export default defineConfig({
       path.join(outDir, 'feed.xml'),
       feed.rss2(),
     )
+
+    const sitemap = new SitemapStream({
+      hostname: 'https://blog.byrdocs.org',
+    })
+    const writeStream = createWriteStream(path.join(outDir, 'sitemap.xml'))
+    sitemap.pipe(writeStream)
+    links.forEach(link => sitemap.write(link))
+    sitemap.end()
+    await new Promise(r => writeStream.on('finish', r))
   },
   transformHtml: (_, id, ctx) => {
-    const src = path.join(process.cwd(), 'docs', ctx.page)
-    if (ctx.page === '404.md' || !ctx.pageData.relativePath.startsWith('blog/posts/'))
-      return
-    const { data, excerpt } = matter(fs.readFileSync(src, 'utf-8'), { excerpt: true })
-    pages.push({
-      ...data,
-      excerpt: excerpt || '...',
-      url: new URL(ctx.pageData.relativePath.replace(/(^|\/)(.*?)\.md$/, '$2.html'), 'https://blog.byrdocs.org').toString(),
-    } as any)
+    const relativeUrl = ctx.pageData.relativePath.replace(/(^|\/)(.*?)\.md$/, '$2.html')
+    if (!/[\\/]404\.html$/.test(id)) {
+      links.push({
+        url: ctx.pageData.relativePath.replace(/((^|\/)index)?\.md$/, '$2'),
+        lastmod: ctx.pageData.lastUpdated || Date.now(),
+      })
+    }
+    if (ctx.page !== '404.md' && ctx.pageData.relativePath.startsWith('blog/posts/')) {
+      const src = path.join(process.cwd(), 'docs', ctx.page)
+      const { data, excerpt } = matter(fs.readFileSync(src, 'utf-8'), { excerpt: true })
+      pages.push({
+        ...data,
+        excerpt: excerpt || '...',
+        url: new URL(relativeUrl, 'https://blog.byrdocs.org').toString(),
+      } as any)
+    }
   },
   themeConfig: {
     footer: {
