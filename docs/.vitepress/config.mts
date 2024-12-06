@@ -158,8 +158,8 @@ export default defineConfig({
         detailedView: true,
         translations: {
           button: {
-            buttonText: '搜索文档',
-            buttonAriaLabel: '搜索文档',
+            buttonText: '搜索博客',
+            buttonAriaLabel: '搜索博客',
           },
           modal: {
             displayDetails: '显示详细列表',
