@@ -31,9 +31,7 @@ const author = findByName(post.value.author)
         <PostAuthor :author="author" />
         <div class="text-sm">
           发布时间
-          <span v-if="Date.now() - post.date.time < 86400 * 7 * 1000" :title="post.date.string">{{
-            post.date.since }}</span>
-          <span v-else :title="post.date.since">{{ post.date.string }}</span>
+          <span>{{ post.date.string }}</span>
         </div>
       </div>
       <hr>
