@@ -8,11 +8,13 @@ tags:
 
 ---
 
-如果你有想要找的电子书，欢迎在[讨论区](https://github.com/orgs/byrdocs/discussions/2)提出你的需求！
+如果你有想要找的电子书，欢迎在[愿望单](https://github.com/orgs/byrdocs/discussions/2)提出你的需求！
 
 ---
 
 <PostDetail>
+
+若是不想看废话，可以直接跳转[电子书愿望单](https://github.com/orgs/byrdocs/discussions/2)。
 
 ## 我们的电子书从哪里来？
 
