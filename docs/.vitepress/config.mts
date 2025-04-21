@@ -130,7 +130,7 @@ export default defineConfig({
   themeConfig: {
     footer: {
       message: 'BYR Docs Blog',
-      copyright: 'Copyright © 2024 BYR Docs',
+      copyright: 'Copyright © 2025 BYR Docs',
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/byrdocs' },
