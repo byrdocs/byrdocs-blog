@@ -101,7 +101,7 @@ BYR Docs 现存 29 份出版于 2022 年至 2025 年的教材，包括《人工�
 - **2024年4月28日**：[BYR Docs](https://byrdocs.org)开站
 - **2024年6月20日**：[BYR Docs QQ群](https://qm.qq.com/cgi-bin/qm/qr?k=plu_KgkqxI4Dw-FwW1aFQDQ0hL062WNV&jump_from=webapi&authKey=09aiBE16MH9jTfmgmGtCjMRsvpazAMkvLcG35mdICYHe2+FKF51qqSIdUC0dVxkh)建立
 - **2024年7月23日**：[电子书愿望单](https://github.com/orghttps://wiki.byrdocs.org/w/24-25-1-通信原理-期末s/byrdocs/discussions/2)建立
-- **2024年11月26日**：| 面向一般用户[开放文件上传](https://blog.byrdocs.org/blog/posts/how-to-organize-test/post.html)
+- **2024年11月26日**：面向一般用户[开放文件上传](https://blog.byrdocs.org/blog/posts/how-to-organize-test/post.html)
 - **2024年12月3日**：子站[维基真题](https://wiki.byrdocs.org)试运行
 - **2025年2月24日**：主站与维基实现信息合并
 
