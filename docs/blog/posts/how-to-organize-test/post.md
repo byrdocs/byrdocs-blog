@@ -252,18 +252,25 @@ data:
 2. 打开 `metadata` 目录，点击 `Add file`->`Upload files`。
     ![upload](./upload.png)
 3. 上传 .yml 文件（注意，不要上传 PDF！你应当上传的是元信息文件）。
-4. 建议在 `Commit Changes` 之前简单地说明一下你做了什么。比如，我在这里填写的是 `添加 2010-2011学年第1学期《计算机组成原理》期末考试试题`。
+4. 在 `Commit Changes` 之前简单地说明一下你做了什么。比如，我在这里填写的是 `添加 2010-2011学年第1学期《计算机组成原理》期末考试试题`。
+
+    **建议将此文件提交到一个新的分支（例如这里是 `add-files`）[^1]，** 如果你有多个文件需要提交，可以一并提交到该分支中。
     ![commit](./commit.png)
-5. commit 之后，再点击 `Contribute`->`Open pull request`->`Create pull request`。
+5. commit 之后，在新分支点击 `Contribute`->`Open pull request`->`Create pull request`。
     ![pr](./pr.png)
+
     如果有额外的信息，可以在创建 PR 的时候补充。
+
     ![cpr](./cpr.png)
 6. PR 创建之后，会自动触发 check，检查元信息格式是否正确、文件是否存在等等。如果没有问题，维护者会合并你的 PR，这份试题就可以在 [byrdocs.org](https://byrdocs.org) 上搜索到了。如果 check 失败，请检查日志中的 `Check` 一项，查看具体错误信息，然后在自己 Fork 的仓库中进行修改，会自动再次运行 check。
+7. PR 合并之后，可以删除新创建的分支。下次修改时，同样先同步主分支然后在新分支上进行修改。
 
 ---
 
 以上就是整理试题文件的完整操作。
 
 如果你有想要整理的试题文件，也可以参考这些步骤来完成。
+
+[^1]: 为什么不直接上传到主分支？因为我们在合并 Pull Request 时会使用 Squash 的方式来合并，上游最终的历史会和你修改的历史不一致，会在后续 PR 的时候带来一定的困惑。而如果你每次修改都在一个新的分支上，Squash 的时候就不会有这个问题了。
 
 </PostDetail>
