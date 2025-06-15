@@ -55,6 +55,10 @@ pip3 install byrdocs-cli
 # Arch Linux
 sudo pacman -S pipx
 pipx install byrdocs-cli
+
+# Homebrew
+brew tap byrdocs/homebrew-byrdocs-cli
+brew install byrdocs-cli
 ```
 
 这个工具可能会更新，所以时常升级是个好习惯。
@@ -63,6 +67,7 @@ pipx install byrdocs-cli
 # 注意，安装时使用哪个指令，升级时也应当使用哪个指令
 pip3 upgrade byrdocs-cli # 使用 pip 来更新
 pipx upgrade byrdocs-cli # 使用 pipx 来更新
+brew upgrade byrdocs-cli # 使用 brew 来更新
 ```
 
 你需要登录才可以使用文件上传功能。
