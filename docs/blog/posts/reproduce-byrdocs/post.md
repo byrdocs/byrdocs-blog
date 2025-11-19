@@ -64,13 +64,13 @@ tar -xzf wikifolder.tar # 得到 wikifolder/
 ### 搭建步骤
 
 1. 在你认为合适的位置建立一个任意名称的目录，比如 `wiki.byrdocs/`。
-2. 在 `wiki.byrdocs/` 目录内编写 `compose.yaml`。这里仅提供示例代码，建议你自行修改 `services/database/environment` 中的 `MYSQL_DATABASE` `MYSQL_USER` `MYSQL_PASSWORD` 三项。
+2. 在 `wiki.byrdocs/` 目录内编写 `compose.yaml`。这里仅提供示例代码，建议你自行修改 `services.database.environment` 中的 `MYSQL_DATABASE` `MYSQL_USER` `MYSQL_PASSWORD` 三项。
 ```yaml
 services:
   mediawiki:
     # 维基真题使用的 MediaWiki 版本为 1.43；随着时间推移，你需要自行升级 MediaWiki 版本
     image: mediawiki:1.43
-    restart: no
+    restart: 'no'
     # 你可自行修改站点的端口号，这里使用 8080
     ports:
       - 8080:80
@@ -83,7 +83,7 @@ services:
       - ./wikifolder/LocalSettings.php:/var/www/html/LocalSettings.php
   database:
     image: mariadb:lts
-    restart: no
+    restart: 'no'
     environment:
       MYSQL_DATABASE: my_wiki
       MYSQL_USER: wikiuser
@@ -100,9 +100,9 @@ volumes:
 3. 将解压后的 `wikifolder/` 移动到 `wiki.byrdocs/` 目录下。
 4. 进入 `wiki.byrdocs/` 目录，并运行以下命令：
 ```
-docker compose up -d
+docker-compose up -d
 ```
-5. 待镜像拉取完毕（只有首次拉取镜像时需要）且容器运行稳定后（大约需要 10 秒），通过 `docker ps` 你可以看到两个新增的容器正在运行。例如在这里，`wikibyrdocs-mediawiki-1` 是服务器容器，`wikibyrdocs-database-1` 是数据库容器。
+5. 待镜像拉取完毕（只有首次拉取镜像时需要）且容器运行稳定（大约需要 10 秒）后，通过 `docker ps` 你可以看到两个新增的容器正在运行。例如在这里，`wikibyrdocs-mediawiki-1` 是服务器容器，`wikibyrdocs-database-1` 是数据库容器。
 ```
 CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS                                     NAMES
 1b05fd4356fa   mediawiki:1.43   "docker-php-entrypoi…"   16 seconds ago   Up 16 seconds   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   wikibyrdocs-mediawiki-1
@@ -133,11 +133,15 @@ CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS
     ```bash
     mariadb -u wikiuser -p my_wiki < /root/wikibackup.sql
     ```
+    6. 退出容器。
+    ```bash
+    exit
+    ```
 8. 重启服务。
 ```bash
-docker compose restart
+docker-compose restart
 ```
-9. 最后，通过浏览器访问 `http://localhost:8080`，你可以看到维基真题的完整网页（如果你是在远程布署的，请将 IP 地址换作你远程主机的 IP）。
+9. 最后，通过浏览器访问 `http://localhost:8080/w/首页`，你可以看到维基真题的完整网页（如果你是在远程布署的，请将 IP 地址换作你远程主机的 IP）。
 
 ### 后续维护
 
@@ -178,6 +182,14 @@ tar -czf wikifolder.tar.gz wikifolder/ # 得到 wikifolder.tar.gz
 ```
 
 ## BUPT 生存指南
+
+BUPT 生存指南基于 [Astro Starlight 框架](https://starlight.astro.build/)搭建，可以快捷、简单地实现文档网站的建设。无论本地搭建，还是使用 Pages 服务，都十分方便。
+
+你可以选择使用自托管服务器或 Cloudflare Pages （及其它 Pages 服务）搭建本站。不过一般来说，即便你选择了 Pages 服务，为了测试网站效果，本地搭建并运行也是必要的。
+
+接下来我将介绍如何本地搭建和使用 Cloudflare Pages 搭建。
+
+### 本地搭建
 
 ### 所需资料
 
