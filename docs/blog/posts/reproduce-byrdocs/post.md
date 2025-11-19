@@ -60,7 +60,6 @@ tar -xzf wikifolder.tar # 得到 wikifolder/
 ### 所需环境
 
 - 一台安装了 [Docker Compose](https://github.com/docker/compose) 的计算机。
-  - 如果这台计算机不是你的主机，比如一个远程服务器，请留意它的 IP 地址。
 
 ### 搭建步骤
 
@@ -110,7 +109,7 @@ CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS
 7c27b51baf95   mariadb:lts      "docker-entrypoint.s…"   16 seconds ago   Up 16 seconds   3306/tcp                                  wikibyrdocs-database-1
 ```
 6. 修改 `wikifolder/LocalSettings.php` 中的内容，以便正确配置 MediaWiki 服务。
-    1. `$wgServer` 改为 `http://localhost:8080`，其中端口号需要与你 `compose.yaml` 中指定的端口号相同。
+    1. `$wgServer` 改为 `http://[ip]:8080`。其中 `[ip]` 是你宿主机的IP 地址（不能使用 `localhost`），端口号需要与你 `compose.yaml` 中指定的端口号相同。
     2. `$wgDBserver` 改为数据库容器的名字，如 `wikibyrdocs-database-1`。
     2. `$wgDBName` `$wgDBuser` `$wgDBpassword` 三项需要和你在 `compose.yaml` 中的配置保持一致。
 7. 接下来，通过以下步骤[导入数据库资料](https://www.mediawiki.org/wiki/Manual:Restoring_a_wiki_from_backup#Import_the_database_backup)。
