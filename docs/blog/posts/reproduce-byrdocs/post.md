@@ -183,16 +183,45 @@ tar -czf wikifolder.tar.gz wikifolder/ # 得到 wikifolder.tar.gz
 
 ## BUPT 生存指南
 
-BUPT 生存指南基于 [Astro Starlight 框架](https://starlight.astro.build/)搭建，可以快捷、简单地实现文档网站的建设。无论本地搭建，还是使用 Pages 服务，都十分方便。
+BUPT 生存指南基于 [Astro Starlight](https://starlight.astro.build/) 搭建，可以快捷、简单地生成静态的文档网站。无论要在本地搭建，还是使用 Pages 服务，都十分方便。
 
-你可以选择使用自托管服务器或 Cloudflare Pages （及其它 Pages 服务）搭建本站。不过一般来说，即便你选择了 Pages 服务，为了测试网站效果，本地搭建并运行也是必要的。
+你可以选择使用自托管服务器或 Cloudflare Pages （及其它 Pages 服务）搭建本站。不过一般来说，即便你选择了 Pages 服务，为了测试网站效果，本地搭建和预览也是必要的。
 
 接下来我将介绍如何本地搭建和使用 Cloudflare Pages 搭建。
 
-### 本地搭建
-
 ### 所需资料
 
-### 所需环境
+BUPT 生存指南的全部文件是一个 [GitHub 仓库](https://github.com/byrdocs/bupt-survival-guide)，你可直接 [Fork 该仓库](https://github.com/byrdocs/bupt-survival-guide/fork)。
+
+### 本地搭建
+
+需要安装 [Node.js](https://nodejs.org) 及 [pnpm](https://pnpm.io/)。
+
+1. 将该仓库内容克隆到本地，打开所在目录。
+2. 下载依赖。
+```bash
+pnpm i
+```
+3. 启动开发服务器。访问 `http://localhost:4321`，你可以看到网站的内容，并使用一些基本功能。在 `dev` 模式下，这个网站会随着你的文档代码更新而热加载。
+```bash
+pnpm dev # 开始 dev 预览模式
+```
+4. 完成文档工作后，你可以构建完整网页并使用它的全部功能。
+```bash
+pnpm build # 此时网页代码将被编译至 `dist/` 中
+pnpm preview # 本地查看，也可加 --host 暴露给公网
+```
+
+### 使用 Cloudflare Pages 搭建
+
+需要拥有一个 [Cloudflare 账号](https://dash.cloudflare.com)。如果只需搭建 BUPT 生存指南，你无需付费或填写任何付款方式。
+
+1. 打开 [Cloudflare 控制台](https://dash.cloudflare.com)，选中侧边栏的 *Build* -> *Compute & AI* -> *Workers & Pages*，并在主界面点击 *Create Application*。
+2. 在 Get Started 页面中，选择 *Pages* -> *Import an existing Git repository*。
+![Get Started](./survival-get-started.png)
+3. 初次使用时，你可能需要绑定一个 GitHub 账号。绑定账号之后，从该账号名下的全部仓库中选择你 fork 的仓库，然后点击右下角 *Begin setup*。
+4. 在配置列表中，需要指定 *Framework preset* 为 **Astro**，*Build command* 为 `pnpm build`，*Build output directory* 为 `dist`，其它配置可以自行修改。配置完毕后点击右下角 *Save and Deploy*，开始部署你的网站。
+![Set up builds and deployments](./survival-set-up-builds-and-deployments.png)
+5. 等待 Cloudflare 布署完毕，而后你可以查看该网站。
 
 </PostDetail>
