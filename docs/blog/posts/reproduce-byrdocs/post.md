@@ -120,16 +120,10 @@ npx wrangler login
 7. 填写环境变量。你需要准备以下两个文件：
     1. `.env` 定义了构建时用到的环境变量，格式如下，请依实际情况自行更改。
     ```ini
-    # 主站网址，也是你为主站设定的自定义域名，见下文第12步
-    BYRDOCS_SITE_URL="https://byrdocs.org"
-    # byrdocs-data 存储桶的自定义域名，见“准备 BYR Docs 文件”第7步
-    R2_DATA_SITE_URL="https://files.byrdocs.org"
     # BYR Docs Publish 的域名
-    PUBLISH_SITE_URL="https://publish.byrdocs.org"
-    # 测试用的网站域名
-    DEV_SITE_URL="https://byrdocs.cpphusky.workers.dev"
+    PUBLISH_SITE_URL = "https://publish.byrdocs.cpphusky.xyz"
     # 你的 byrdocs-archive 对应的 GitHub 仓库
-    ARCHIVE_REPO_URL="https://github.com/byrdocs/byrdocs-archive"
+    ARCHIVE_REPO_URL = "https://github.com/byrdocs/byrdocs-archive-testing"
     ```
     2. `.dev.vars` 定义了 Cloudflare 后端用到的环境变量，格式如下，请依实际情况自行更改。
     ```ini
@@ -143,11 +137,17 @@ npx wrangler login
     JWT_SECRET=
     # 同上，但不要使用相同的值
     TOKEN=
-    # 以下变量与 `.env` 中完全相同即可
+    # 主站网址，也是你为主站设定的自定义域名，见下文第12步
     BYRDOCS_SITE_URL="https://byrdocs.org"
+    # byrdocs-data 存储桶的自定义域名，见“准备 BYR Docs 文件”第7步
     R2_DATA_SITE_URL="https://files.byrdocs.org"
+    # BYR Docs Publish 的域名
     PUBLISH_SITE_URL="https://publish.byrdocs.org"
+    # BYR Docs Publish 的测试地址
+    PUBLISH_DEV_SITE_URL="http://localhost:3000"
+    # 测试用的网站域名
     DEV_SITE_URL="https://byrdocs.cpphusky.workers.dev"
+  # 你的 byrdocs-archive 对应的 GitHub 仓库
     ARCHIVE_REPO_URL="https://github.com/byrdocs/byrdocs-archive"
     ```
 8.  现在运行 `pnpm run deploy` 进行初次布署。但此时因为尚未准备好所需的信息和文件，所以网站的正常功能还不可用。
@@ -241,7 +241,7 @@ BYR Docs Publish 是一个 Cloudflare Page，其前后端代码位于 [byrdocs-p
 
 你需要准备的资料包括：
 
-- 一个 [byrdocs-publish](https://github.com/byrdocs/byrdocs-publish) 仓库，建议置于你自己的组织名下，作为**基准仓库**。
+- 一个 [byrdocs-publish](https://github.com/byrdocs/byrdocs-publish) 仓库，建议置于你自己的组织名下，作为**基准仓库**。你应当已经在[准备 BYR Docs Archive](#准备-byr-docs-archive) 的过程中完成了这一步。
 - 另一个 [byrdocs-publish](https://github.com/byrdocs/byrdocs-publish) 仓库，必须**由基准仓库 Fork 而来**。
 
 ### 所需环境
@@ -266,7 +266,7 @@ BYR Docs Publish 是一个 Cloudflare Page，其前后端代码位于 [byrdocs-p
     2. *Identifying and authorizing users*：
         1. *Callback URL* 填为 `PUBLISH_SITE_URL/callback/github`；如果你希望在本地运行和测试，还可以添加一个 `http://localhost:3000/callback/github`。
         2. 选中 *Expire user authorization tokens*。
-        3. 不选中 *Request user authorization (OAuth) during installation* 和 *Enable Device Flow*。
+        3. **不**选中 *Request user authorization (OAuth) during installation* 和 *Enable Device Flow*。
     3. *Post installation*：
         1. *Setup URL* 填为 `PUBLISH_SITE_URL/bind`。
         2. 选中 *Redirect on update*。
@@ -283,7 +283,7 @@ BYR Docs Publish 是一个 Cloudflare Page，其前后端代码位于 [byrdocs-p
 6. 在 *Private keys* 中点击 *Generate a private key*，会生成并自动下载一个 .pem 文件，记下它的内容，作为 `GITHUB_APP_PRIVATE_KEY`。
 7. 点击侧边栏 *Install App*，将你创建的 GitHub App 安装到基准仓库中。
 
-以上过程中需要你记录的量有五个：`APP_ID` `GITHUB_APP_PRIVATE_KEY` `GITHUB_CLIENT_ID` `GITHUB_CLIENT_SECRET` `WEBHOOK_SECRET`。请注意留存。
+以上过程中需要你记录的量有五个：`APP_ID` `GITHUB_CLIENT_ID` `GITHUB_CLIENT_SECRET` `GITHUB_APP_PRIVATE_KEY` `WEBHOOK_SECRET`。请注意留存。
 
 #### 准备开发环境
 
@@ -309,47 +309,59 @@ npx wrangler login
     database_name = "byrdocs-publish"
     database_id = $DATABASE_ID
     ```
+    4. 应用 D1 数据库迁移。
+    ```bash
+    npx wrangler d1 migrations apply byrdocs-publish --remote
+    ```
 5. 填写环境变量。你需要准备以下两个文件：
-    1. `.env` 定义了构建时用到的环境变量，格式如下，请依实际情况自行更改。
-    ```ini
+    1. `wrangler.toml` 的 `[vars]` 表中定义了构建时用到的环境变量，格式如下，请依实际情况自行更改。
+    ```toml
+    [vars]
+    # Node.js 版本，使用 23.9.0
+    NODE_VERSION = "23.9.0"
     # 主站网址，也是你为主站设定的自定义域名
-    NEXT_PUBLIC_BYRDOCS_SITE_URL="https://byrdocs.org"
+    NEXT_PUBLIC_BYRDOCS_SITE_URL = "https://byrdocs.org"
     # byrdocs-data 存储桶的自定义域名
-    NEXT_PUBLIC_R2_DATA_SITE_URL="https://files.byrdocs.org"
-    # BYR Docs Publish 的域名，见
-    NEXT_PUBLIC_PUBLISH_SITE_URL="https://publish.byrdocs.org"
+    NEXT_PUBLIC_R2_DATA_SITE_URL = "https://files.byrdocs.org"
+    # BYR Docs Publish 的域名，见下文第 11 步
+    NEXT_PUBLIC_PUBLISH_SITE_URL = "https://publish.byrdocs.org"
     # 测试用的网站域名
-    NEXT_PUBLIC_PUBLISH_DEV_SITE_URL="http://localhost:3000"
+    NEXT_PUBLIC_PUBLISH_DEV_SITE_URL = "http://localhost:3000"
     # 你的 GitHub APP 链接
-    NEXT_PUBLIC_PUBLISH_APP_URL="https://github.com/apps/byrdocs-publish"
+    NEXT_PUBLIC_PUBLISH_APP_URL = "https://github.com/apps/byrdocs-publish"
     # 你的基准仓库所有者
-    NEXT_PUBLIC_ARCHIVE_REPO_OWNER="byrdocs"
+    NEXT_PUBLIC_ARCHIVE_REPO_OWNER = "byrdocs"
     # 你的基准仓库名称
-    NEXT_PUBLIC_ARCHIVE_REPO_NAME="byrdocs-archive"
+    NEXT_PUBLIC_ARCHIVE_REPO_NAME = "byrdocs-archive"
     # 你的基准仓库地址
-    NEXT_PUBLIC_ARCHIVE_REPO_URL="https://github.com/byrdocs/byrdocs-archive"
+    NEXT_PUBLIC_ARCHIVE_REPO_URL = "https://github.com/byrdocs/byrdocs-archive"
     ```
     2. `.dev.vars` 定义了 Cloudflare 后端用到的环境变量，格式如下，请依实际情况自行更改。
     ```ini
     # 你在创建 GitHub APP 时记录下来的信息
     APP_ID=
-    GITHUB_APP_PRIVATE_KEY=
     GITHUB_CLIENT_ID=
     GITHUB_CLIENT_SECRET=
+    GITHUB_APP_PRIVATE_KEY=
     # 自行生成一个字母/数字/符号串，且不少于32字符
     JWT_SECRET=
     # 同上，但不要使用相同的值
     WEBHOOK_SECRET=
     ```
 6. 现在将你的更改提交、推送到 GitHub。
-7. 开始[通过 GitHub 布署](https://dash.cloudflare.com/?to=/:account/pages/new/provider/github)。从该账号名下的全部仓库中选择你的 `byrdocs-publish` 仓库，然后点击右下角 *Begin setup*。
-8. 选择正确的 branch。在 *Build settings* 中，*Build command* 填 `npm run cf-build`，*Build output directory* 填 `.next`。展开 *Encironment variables (advanced)*，将你 `.env` 中的所有环境变量填入其中。
+7. 开始[通过 GitHub 布署 Cloudflare Page](https://dash.cloudflare.com/?to=/:account/pages/new/provider/github)。从该账号名下的全部仓库中选择你的 `byrdocs-publish` 仓库，然后点击右下角 *Begin setup*。
+8. 选择正确的 branch。在 *Build settings* 中，*Build command* 填 `npm run cf-build`，*Build output directory* 留空。
 9. 点击 *Save and Deploy*，等待初次布署完毕。
 10. 接下来，将 `.dev.vars` 中的环境变量上传至 Cloudflare Worker 中。
 ```bash
 npx wrangler pages secret bulk .dev.vars
 ```
-11. 在 [Workers & Pages](https://dash.cloudflare.com/?to=/:account/workers-and-pages) 列表中，选中自己的 `byrdocs-publish` 站点。找到 *Custom domains*，点击 *Set up a custom domain*，填写你希望使用的域名，再点击 *Activa domain*，激活此域名。
+11. 在 [Workers & Pages](https://dash.cloudflare.com/?to=/:account/workers-and-pages) 列表中，选中自己的 `byrdocs-publish` 站点。找到 *Custom domains*，点击 *Set up a custom domain*，填写你希望使用的域名，再点击 *Continue* -> *Active domain*，激活此域名。
+12. 再次通过 GitHub 仓库布署。一种可行的方法是重新提交并推送到 GitHub：
+```bash
+git commit --amend
+git push origin main --force-with-lease
+```
 
 ## 维基真题
 
