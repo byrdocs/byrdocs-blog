@@ -74,11 +74,11 @@ BYR Docs 的网站代码位于 [byrdocs 仓库](https://github.com/byrdocs/byrdo
 ### 搭建步骤
 
 因为搭建过程较为繁琐，我将其分为几个子过程，分别加以介绍。
-1. [准备开发环境](#准备开发环境)
+1. [准备 byrdocs 开发环境](#准备-byrdocs-开发环境)
 2. [准备 BYR Docs 文件](#准备-byr-docs-文件)
 3. [准备 BYR Docs Archive](#准备-byr-docs-archive)
 
-#### 准备开发环境
+#### 准备 byrdocs 开发环境
 
 首先，我们需要搭建本地开发环境。
 
@@ -92,23 +92,17 @@ pnpm i
 npx wrangler login
 ```
 4. 配置 D1 数据库。
-    1. 打开 `wrangler.jsonc`，删除 `d1_databases` 中的原有项。现在该项应当是这样的空数组。
-    ```jsonc
-    "d1_databases": []
-    ```
+    1. 打开 `wrangler.toml`，删除所有的 `[[d1_databases]]` 表项。
     2. 创建名为 `byrdocs` 的 D1 数据库。
     ```bash
     npx wrangler d1 create byrdocs --binding DB
     ```
-    3. 此后 Wrangler 会为你添加数据库信息至 `wrangler.jsonc` 中，如下例所示，请进行检查。如未成功自动添加，请你手动添加。
-    ```jsonc
-    "d1_databases": [
-      {
-        "binding": "D1",
-        "database_name": "byrdocs",
-        "database_id": $CLOUDFLARE_DATABASE_ID
-      }
-    ]
+    3. Wrangler 会为你生成一则 Toml 配置，将其复制到 `wrangler.toml` 中，如：
+    ```toml
+    [[d1_databases]]
+    binding = "DB"
+    database_name = "byrdocs"
+    database_id = $DATABASE_ID
     ```
     4. 应用 D1 数据库迁移。
     ```bash
@@ -121,9 +115,9 @@ npx wrangler login
     1. `.env` 定义了构建时用到的环境变量，格式如下，请依实际情况自行更改。
     ```ini
     # BYR Docs Publish 的域名
-    PUBLISH_SITE_URL = "https://publish.byrdocs.cpphusky.xyz"
+    PUBLISH_SITE_URL = "https://publish.byrdocs.org"
     # 你的 byrdocs-archive 对应的 GitHub 仓库
-    ARCHIVE_REPO_URL = "https://github.com/byrdocs/byrdocs-archive-testing"
+    ARCHIVE_REPO_URL = "https://github.com/byrdocs/byrdocs-archive"
     ```
     2. `.dev.vars` 定义了 Cloudflare 后端用到的环境变量，格式如下，请依实际情况自行更改。
     ```ini
@@ -131,12 +125,12 @@ npx wrangler login
     CLOUDFLARE_D1_TOKEN=
     # 你的 Cloudflare Account Id，可通过命令 `npx wrangler whoami` 查得
     CLOUDFLARE_ACCOUNT_ID=
-    # D1 的数据库 ID，在生成数据库时得到，可在 `wrangler.jsonc` 中找到
+    # D1 的数据库 ID，在生成数据库时得到，可在 `wrangler.toml` 中找到
     CLOUDFLARE_DATABASE_ID=
     # 自行生成一个字母/数字/符号串，且不少于32字符
     JWT_SECRET=
     # 同上，但不要使用相同的值
-    TOKEN=
+    BYRDOCS_SITE_TOKEN=
     # 主站网址，也是你为主站设定的自定义域名，见下文第12步
     BYRDOCS_SITE_URL="https://byrdocs.org"
     # byrdocs-data 存储桶的自定义域名，见“准备 BYR Docs 文件”第7步
@@ -147,7 +141,7 @@ npx wrangler login
     PUBLISH_DEV_SITE_URL="http://localhost:3000"
     # 测试用的网站域名
     DEV_SITE_URL="https://byrdocs.cpphusky.workers.dev"
-  # 你的 byrdocs-archive 对应的 GitHub 仓库
+    # 你的 byrdocs-archive 对应的 GitHub 仓库
     ARCHIVE_REPO_URL="https://github.com/byrdocs/byrdocs-archive"
     ```
 8.  现在运行 `pnpm run deploy` 进行初次布署。但此时因为尚未准备好所需的信息和文件，所以网站的正常功能还不可用。
@@ -160,7 +154,7 @@ npx wrangler secret bulk .dev.vars
 12. 同样在 `byrdocs` 站点设置中，找到 *Domains & Routes*，点击 *+Add* -> *Custom domain*，填写你希望使用的域名。
 13. 提交你在第 4 步中作出的更改并推送到 GitHub。接下来检查 Cloudflare Deployment 是否可以正常运行并通过。
 
-现在你已经顺利搭建好了 BYR Docs Publish 的服务。
+现在你已经顺利搭建好了 BYR Docs 的开发环境。
 
 #### 准备 BYR Docs 文件
 
@@ -177,7 +171,7 @@ npx wrangler secret bulk .dev.vars
 
 当你下载 BYR Docs 资源文件压缩包后，请先将其解压，得到一个名为 `byrdocs-file/` 的文件夹。接下来，你可按以下步骤，将资源文件导入你自己账号下的 R2 存储桶中。
 
-1. 建立三个 R2 存储桶，分别名为 `byrdocs-file` `byrdocs-data` 和 `byrdocs-backup`。但**不要让 Wrangler 代表你将这些存储桶写入 `wrangler.jsonc` 中**。
+1. 建立三个 R2 存储桶，分别名为 `byrdocs-file` `byrdocs-data` 和 `byrdocs-backup`。但**不要修改现有的 `wrangler.toml`**。
 ```bash
 npx wrangler r2 bucket create byrdocs-file
 npx wrangler r2 bucket create byrdocs-data
@@ -217,7 +211,7 @@ scripts/update_urls.py $BYRDOCS_SITE_URL
     2. `R2_ACCESS_KEY_ID` `R2_SECRET_ACCESS_KEY` 是你在创建 R2 Token 时记录下来的值。
     3. `R2_FILE_BUCKET` `R2_DATA_BUCKET` 是你定义的资源文件存储桶、数据存储桶名称，在这里是 `byrdocs-file` `byrdocs-data`。
     4. `BYRDOCS_SITE_URL` 是你为主站设置的网站域名 `$BYRDOCS_SITE_URL`。
-    5. `BYRDOCS_SITE_TOKEN` 是你在 `byrdocs` 代码中定义的 `TOKEN` 值，需保持一致。
+    5. `BYRDOCS_SITE_TOKEN` 是你在 `byrdocs` 代码中定义的 `BYRDOCS_SITE_TOKEN` 值，需保持一致。
     6. `BYRDOCS_CHECK_REPO_OWNER` `BYRDOCS_CHECK_REPO_NAME` 是的 byrdocs-check 仓库的所有者和名称。如果你只想使用默认值，请使用 `byrdocs` `byrdocs-check`。
     7. `FILELIST_SITE_URL` 定义了 `.zip` 文件预览服务的 API 提供网站。你可直接使用 `https://filelist.youxam.workers.dev`。
     8. `BACKUP_ENDPOINT` 是你 R2 备份存储池的 S3 API 端点，可在 [*Account Details*](https://dash.cloudflare.com/?to=/:account/r2/overview) 中查得。当然，你也可以自行配置和使用其它 S3 兼容的存储池。
@@ -242,7 +236,7 @@ BYR Docs Publish 是一个 Cloudflare Page，其前后端代码位于 [byrdocs-p
 你需要准备的资料包括：
 
 - 一个 [byrdocs-publish](https://github.com/byrdocs/byrdocs-publish) 仓库，建议置于你自己的组织名下，作为**基准仓库**。你应当已经在[准备 BYR Docs Archive](#准备-byr-docs-archive) 的过程中完成了这一步。
-- 另一个 [byrdocs-publish](https://github.com/byrdocs/byrdocs-publish) 仓库，必须**由基准仓库 Fork 而来**。
+- （可选）当你调试网站功能时，你需要准备另一个 [byrdocs-publish](https://github.com/byrdocs/byrdocs-publish) 仓库。它必须**由基准仓库 Fork 而来**。
 
 ### 所需环境
 
@@ -255,6 +249,8 @@ BYR Docs Publish 是一个 Cloudflare Page，其前后端代码位于 [byrdocs-p
 ### 搭建步骤
 
 分为以下几个子步骤：
+1. [准备 GitHub App](#准备-github-app)
+2. [准备 publish 开发环境](#准备-publish-开发环境)
 
 #### 准备 GitHub App
 
@@ -285,7 +281,7 @@ BYR Docs Publish 是一个 Cloudflare Page，其前后端代码位于 [byrdocs-p
 
 以上过程中需要你记录的量有五个：`APP_ID` `GITHUB_CLIENT_ID` `GITHUB_CLIENT_SECRET` `GITHUB_APP_PRIVATE_KEY` `WEBHOOK_SECRET`。请注意留存。
 
-#### 准备开发环境
+#### 准备 publish 开发环境
 
 1. 将 `byrdocs-publish` 仓库拷贝到本地，并进入该目录。
 2. 下载依赖。
@@ -343,14 +339,13 @@ npx wrangler login
     GITHUB_CLIENT_ID=
     GITHUB_CLIENT_SECRET=
     GITHUB_APP_PRIVATE_KEY=
-    # 自行生成一个字母/数字/符号串，且不少于32字符
-    JWT_SECRET=
-    # 同上，但不要使用相同的值
     WEBHOOK_SECRET=
+    # 必须与 BYR Docs 主站使用的 JWT_SECRET 一致
+    JWT_SECRET=
     ```
 6. 现在将你的更改提交、推送到 GitHub。
 7. 开始[通过 GitHub 布署 Cloudflare Page](https://dash.cloudflare.com/?to=/:account/pages/new/provider/github)。从该账号名下的全部仓库中选择你的 `byrdocs-publish` 仓库，然后点击右下角 *Begin setup*。
-8. 选择正确的 branch。在 *Build settings* 中，*Build command* 填 `npm run cf-build`，*Build output directory* 留空。
+8. 选择正确的 branch。在 *Build settings* 中，*Build command* 填 `pnpm run cf-build`，*Build output directory* 留空。
 9. 点击 *Save and Deploy*，等待初次布署完毕。
 10. 接下来，将 `.dev.vars` 中的环境变量上传至 Cloudflare Worker 中。
 ```bash
@@ -476,6 +471,9 @@ docker-compose restart
 MediaWiki 系统需要至少存在一名**行政员**，才能为其它用户授予各类用户组权限。新站长可向旧站[行政员列表](https://wiki.byrdocs.org/index.php?title=%E7%89%B9%E6%AE%8A:%E7%94%A8%E6%88%B7%E5%88%97%E8%A1%A8&group=bureaucrat)中的任何一位索取管理员、行政员及其它用户组权限。（若链接失效，请发邮咨询 cpphusky@gmail.com）。
 
 行政员直接关系到全部用户权限的授予和剥夺，请谨慎使用你的权限！
+
+#### 维基真题元信息
+
 
 #### 维基真题备份
 
