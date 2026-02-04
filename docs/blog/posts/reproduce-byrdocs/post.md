@@ -275,7 +275,12 @@ BYR Docs Publish 是一个 Cloudflare Page，其前后端代码位于 [byrdocs-p
 3. 点击 *Create GitHub App*，完成 App 创建。
 4. 在完成创建的页面，记下 *About* 中的 *App ID* 和 *Client ID*，作为 `APP_ID` 和 `GITHUB_CLIENT_ID`。
 5. 在 *Client Secrets* 中点击 *Generate a new client secret*，记下新生成的值，作为 `GITHUB_CLIENT_SECRET`。
-6. 在 *Private keys* 中点击 *Generate a private key*，会生成并自动下载一个 .pem 文件，记下它的内容，作为 `GITHUB_APP_PRIVATE_KEY`。
+6. 在 *Private keys* 中点击 *Generate a private key*，会生成并自动下载一个 .pem 文件。将它转成 PKCS8 格式，得到如下形式的内容。记下它的内容，作为 `GITHUB_APP_PRIVATE_KEY`。
+```
+-----BEGIN PRIVATE KEY-----
+... ...
+-----END PRIVATE KEY-----
+```
 7. 点击侧边栏 *Install App*，将你创建的 GitHub App 安装到基准仓库中。
 
 以上过程中需要你记录的量有五个：`APP_ID` `GITHUB_CLIENT_ID` `GITHUB_CLIENT_SECRET` `GITHUB_APP_PRIVATE_KEY` `WEBHOOK_SECRET`。请注意留存。
