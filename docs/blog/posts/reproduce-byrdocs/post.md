@@ -269,7 +269,7 @@ BYR Docs Publish 是一个 Cloudflare Page，其前后端代码位于 [byrdocs-p
         1. *Webhook URL* 填为 `PUBLISH_SITE_URL/api/github/webhook`。
         2. *Secret* 请自行生成一个足够强的字符串填入，记下它，作为 `WEBHOOK_SECRET`。
     5. *Permissions*：
-        1. 在 *Repository permissions* 中，设定 *Contents* 和 *Pull Requests* 的权限均为 *Read and Write*，其它项无需设定。
+        1. 在 *Repository permissions* 中，设定 *Contents*, *Pull Requests* 和 *Workflows* 的权限均为 *Read and Write*，其它项无需设定。
     6. *Subscribe to events*：不选任何项。
     7. *Where can this GitHub App be installed?* 选择 *Any Account*。
 3. 点击 *Create GitHub App*，完成 App 创建。
