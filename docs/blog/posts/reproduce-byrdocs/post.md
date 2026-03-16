@@ -212,7 +212,7 @@ scripts/update_urls.py $BYRDOCS_SITE_URL
     3. `R2_FILE_BUCKET` `R2_DATA_BUCKET` 是你定义的资源文件存储桶、数据存储桶名称，在这里是 `byrdocs-file` `byrdocs-data`。
     4. `BYRDOCS_SITE_URL` 是你为主站设置的网站域名 `$BYRDOCS_SITE_URL`。
     5. `BYRDOCS_SITE_TOKEN` 是你在 `byrdocs` 代码中定义的 `BYRDOCS_SITE_TOKEN` 值，需保持一致。
-    6. `FILELIST_SITE_URL` 定义了 `.zip` 文件预览服务的 API 提供网站。你可直接使用 `https://filelist.youxam.workers.dev`。
+    6. `FILELIST_SITE_URL` 定义了 `.zip` 文件预览服务的 API 提供网站。你可直接使用 `https://filelist.youxam.workers.dev/png`。
     7. `BACKUP_ENDPOINT` 是你 R2 备份存储池的 S3 API 端点，可在 [*Account Details*](https://dash.cloudflare.com/?to=/:account/r2/overview) 中查得。当然，你也可以自行配置和使用其它 S3 兼容的存储池。
     8. `BACKUP_ACCESS_KEY_ID` `BACKUP_SECRET_ACCESS_KEY` 是你在创建 R2 备份存储池的 Token 时记录下来的值。如果你的备份存储池和主存储池相同，只需使用第二步中相同的值即可。
     9. `BACKUP_FILE_BUCKET` 是你定义的资源文件备份存储桶名称，在这里是 `byrdocs-backup`。
