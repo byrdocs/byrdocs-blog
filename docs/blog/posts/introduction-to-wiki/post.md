@@ -3,8 +3,6 @@ date: 2024-12-3 18:41
 title: 新项目：维基真题
 category: 公告
 author: cppHusky
-tags:
-    - 主站公告
 
 ---
 
