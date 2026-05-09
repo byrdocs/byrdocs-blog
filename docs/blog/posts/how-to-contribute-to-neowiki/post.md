@@ -84,6 +84,8 @@ pnpm dev
 
 如果你使用其他编辑器，可以在pnpm dev启动了预览服务器后通过输入网址在浏览器预览更改。如：http://localhost:4321/exam/25-26-2-%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6-%E6%9C%9F%E4%B8%AD
 
+对于题图，我们优先希望你使用svg文件，即可缩放矢量图形。svg优点在于它是由代码绘制的图形，可以确保高清晰度和适配性。如果你对svg不熟悉，可以尝试使用LaTex的TikZ绘图包或Typst的CeTZ绘图包，并用ai工具辅助编写；或者使用Inkscape等GUI拖拽式编辑器。另外，对于流程图可以在[draw.io](https://www.drawio.com/)进行绘制较为方便。
+
 ### 提交更改
 首先，需要确保你fork的仓库与上游同步。在你的仓库页面找到Snyc fork按键（在绿色的<>Code下方），如果过期请更新。
 
