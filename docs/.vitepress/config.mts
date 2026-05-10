@@ -35,6 +35,7 @@ const links: Array<{ url: string, lastmod: number }> = []
 const description = 'BYR Docs 的最新动态。BYR Docs：北京邮电大学资料分享平台，旨在使校内学生更方便地获取与北邮课程有关的教育资源，包括电子书籍、考试题目和复习资料等。'
 
 export default defineConfig({
+  ignoreDeadLinks: true,
   description,
   lastUpdated: true,
   markdown: {
