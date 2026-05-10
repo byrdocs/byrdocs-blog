@@ -32,7 +32,7 @@ tags:
 
 我也很高兴看到，越来越多富有热情的同学们愿意协助我们进一步推进维基真题和 BUPT 生存手册的编辑工作。他们的热情使我相信 BYR Docs 的工作是可以持续下去的，也使我相信我们为搭建这套基础设施所做出的努力是值得的。
 
-时至今日，BYR Docs 已经形成了一套完善的基础设施。的我们不仅完全开放了 BYR Docs 各子项目的源代码，还撰写[文档](/blog/posts/reproduce-byrdocs/post.html)将 BYR Docs 的搭建方法公诸于世。这样一来，哪怕终有一天 BYR Docs 关停了，后人也可以通过我们搭建好的基础设施，复现出下一个“BYR Docs”。
+时至今日，BYR Docs 已经形成了一套完善的基础设施。我们不仅完全开放了 BYR Docs 各子项目的源代码，还撰写[文档](/blog/posts/reproduce-byrdocs/post.html)将 BYR Docs 的搭建方法公诸于世。这样一来，哪怕终有一天 BYR Docs 关停了，后人也可以通过我们搭建好的基础设施，复现出下一个“BYR Docs”。
 
 顺便一提，不久前我了解到，来自上海财经大学的 [XSUFE 团队](https://github.com/XSUFE) 正在二次开发 BYR Docs 的项目，以打造上海财经大学资料分享平台 SUFEDocs。我谨代表 BYR Docs 预祝 SUFEDocs 取得成功。
 

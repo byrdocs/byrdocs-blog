@@ -17,6 +17,13 @@ const data: Author[] = [
       avatar: 'https://avatars.githubusercontent.com/u/88606244?v=4',
     },
   },
+  {
+    name: 'Shxiao101',
+    href: 'https://github.com/Shxiao101/',
+    data: {
+      avatar: 'https://avatars.githubusercontent.com/u/222913928?v=4',
+    },
+  }
 ]
 
 export { data }
