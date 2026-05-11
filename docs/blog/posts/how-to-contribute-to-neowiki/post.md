@@ -14,9 +14,9 @@ author: Shxiao101
 
 ## 前言
 
-由于开发团队人手不足，时间精力有限，我们无法再运行和维护前一版维基真题这样的动态网站，迁移到静态网站虽然是不得已为之，确是当下的最优选择。
+原有的维基真题现已全部迁移到neowiki，提供了更加简洁直观的界面，更快的加载速度，更便捷的文件管理，并且试卷改为用markdown语言编写，易于上手编写，适用性广泛。
 
-尽管neowiki不能像维基真题那样每个用户都能轻松修改，但其必须要以pr的形式提交修改一定程度上确保了内容的可靠性，也减少了我们的审核压力。
+尽管neowiki不能像旧版维基真题那样每个用户都能快速修改，但其必须要以pr的形式提交修改一定程度上确保了内容的可靠性，版本维护也更加轻松。
 
 以下是面向新手的neowiki环境搭建及操作教程，如果您在使用过程中有任何疑惑，欢迎加QQ群交流：829649976。
 
@@ -56,6 +56,8 @@ npm install -g pnpm
 
 接下来在你fork的仓库页面点击绿色的<>Code按键，复制出现的URL。
 
+![clone](./clone.png)
+
 打开任意终端，在你要安装的位置键入命令：
 ``` bash
 git clone <你刚才复制的URL>
@@ -71,23 +73,28 @@ pnpm i
 ``` bash
 pnpm dev
 ```
-接下来你可以在 http://localhost:4321 看到neowiki的编辑指南，务必仔细阅读。
+接下来你可以在
+```
+http://localhost:4321
+```
+ 进入neowiki的首页，其中有neowiki的编辑指南的跳转链接，务必仔细阅读。
 
 ## 编辑试卷
 
 ### 在vscode编辑试卷
-我们提供了vscode扩展方便编辑者预览页面，在vscode扩展商店安装BYR Docs Wiki Tools。
+我们提供了vscode扩展方便编辑者预览页面，在vscode扩展商店安装BYR Docs Wiki Tools。该扩展只有在你当前已打开进入byrdocs-neowiki文件夹时才会启用。
 
-打开byrdocs-neowiki文件夹，对于编辑者只需要关注/exams目录。参考命名格式新建试卷目录，目录下存放index.mdx作为试卷文件和其他格式的附属文件如题图、音频等。同样，你也可以使用扩展的功能快捷新建试卷。
+打开byrdocs-neowiki文件夹，对于编辑者只需要关注/exams目录。参考命名格式新建试卷目录，目录下存放index.mdx作为试卷文件和其他格式的附属文件如题图、音频等。同样，你也可以使用扩展的功能快捷新建试卷：点击侧边栏中的 BYR Docs Wiki扩展，再点击**新建页面**。
 
+你可以在侧边栏搜索试卷，点击即可打开试卷文件并预览；亦或者打开一份试卷文件：*exams/试卷文件夹/index.mdx*后按 **Ctrl/Cmd + K 再按 V** 即可预览。
 ![Extension](./extension.png)
 
-如果你使用其他编辑器，可以在pnpm dev启动了预览服务器后通过输入网址在浏览器预览更改。如：http://localhost:4321/exam/25-26-2-%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6-%E6%9C%9F%E4%B8%AD
-
-对于题图，我们优先希望你使用svg文件，即可缩放矢量图形。svg优点在于它是由代码绘制的图形，可以确保高清晰度和适配性。如果你对svg不熟悉，可以尝试使用LaTex的TikZ绘图包或Typst的CeTZ绘图包，并用ai工具辅助编写；或者使用Inkscape等GUI拖拽式编辑器。另外，对于流程图可以在[draw.io](https://www.drawio.com/)进行绘制较为方便。
+如果你使用其他编辑器，可以在终端输入**pnpm dev**启动了预览服务器后通过输入网址在浏览器预览更改。如：http://localhost:4321/exam/25-26-2-%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6-%E6%9C%9F%E4%B8%AD
 
 ### 提交更改
-首先，需要确保你fork的仓库与上游同步。在你的仓库页面找到Snyc fork按键（在绿色的<>Code下方），如果过期请更新。
+首先，需要确保你fork的仓库与上游同步。在你的仓库页面找到Snyc fork按键，如果过期请点击绿色按钮Update branch更新。
+
+![snyc](./sync.png)
 
 接下来同步本地仓库。点击vscode左侧边栏的源代码管理，点击储存库的同步更改图标，形状是双箭头的圆环。
 
@@ -108,7 +115,10 @@ git push # 推送更改
 ```
 
 ### 在github上创建pr
-在你fork的仓库找到Contribute按键（也在绿色的<>Code下一行），再点击绿色的Open pull request.描述后点击create pull request.
+在你fork的仓库找到Contribute按键，再点击绿色的Open pull request.描述后点击create pull request.
+
+![contribute](./contribute.png)
+![create](./create.png)
 
 至此已经成功提交了一次修改，在该分支尚未被管理员合并之前，你在该分支提交的所有更改都会被加入该pr，不需要重新创建pr。或者你可以在github上直接修改已提交的pr内容。
 
