@@ -3,7 +3,7 @@ date: 2026-5-14 13:00
 title: 如何在维基真题整理试题？
 category: 指引
 author: Shxiao101
-tag:
+tags:
     - 主站公告
 
 ---
