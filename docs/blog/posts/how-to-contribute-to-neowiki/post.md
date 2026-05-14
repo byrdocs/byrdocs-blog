@@ -1,5 +1,5 @@
 ---
-date: 2026-5-3 3:00
+date: 2026-5-14 13:00
 title: 如何在neowiki上贡献试题？
 category: 指引
 author: Shxiao101
@@ -84,10 +84,35 @@ http://localhost:4321
 ### 在vscode编辑试卷
 我们提供了vscode扩展方便编辑者预览页面，在vscode扩展商店安装BYR Docs Wiki Tools。该扩展只有在你当前已打开进入byrdocs-neowiki文件夹时才会启用。
 
-打开byrdocs-neowiki文件夹，对于编辑者只需要关注/exams目录。参考命名格式新建试卷目录，目录下存放index.mdx作为试卷文件和其他格式的附属文件如题图、音频等。同样，你也可以使用扩展的功能快捷新建试卷：点击侧边栏中的 BYR Docs Wiki扩展，再点击**新建页面**。
+打开byrdocs-neowiki文件夹，对于编辑者只需要关注/exams目录。下面以新建一份2025-2026学年第二学期大学物理D期中试卷为例。
 
-你可以在侧边栏搜索试卷，点击即可打开试卷文件并预览；亦或者打开一份试卷文件：*exams/试卷文件夹/index.mdx*后按 **Ctrl/Cmd + K 再按 V** 即可预览。
-![Extension](./extension.png)
+#### 方法一
+
+在/exams里新建试卷文件夹，参考命名格式为<25-26-大学物理D-期中>。进入试卷文件夹，新建试卷文件index.mdx。如有题图、音频等附件一并存放在同一目录内。
+
+![exams](./exams.png)
+
+按照试卷信息输入前言如下，其中来源为[byrdocs主站](byrdocs.org)已有试卷的md5，可在网站的试卷搜索结果的右下角复制得到。
+
+![perface](./perface.png)
+
+![md5](./md5.png)
+
+在下方编辑正文内容。
+
+#### 方法二
+
+使用扩展新建试卷:点击侧边栏byrdocs-wiki-tool扩展图标，点击最上方**新建页面**按扭，填写相关试卷信息如下:
+
+![newpage](./newpage.png)
+
+#### 预览试卷
+
+点击侧边栏扩展图标，搜索试卷点击即可打开并预览。
+
+![search](./search.png)
+
+或者打开某份index.mdx试卷文件，按**Ctrl/Cmd + K 再按 V**即可打开预览。
 
 如果你使用其他编辑器，可以在终端输入**pnpm dev**启动了预览服务器后通过输入网址在浏览器预览更改。如：http://localhost:4321/exam/25-26-2-%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6-%E6%9C%9F%E4%B8%AD
 
