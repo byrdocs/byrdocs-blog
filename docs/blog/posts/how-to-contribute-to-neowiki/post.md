@@ -82,7 +82,22 @@ pnpm dev
 编辑前请务必仔细阅读维基真题的[编辑指南](https://wiki.byrdocs.org/guide/)。它会指引你按照维基真题的格式规范进行录入。
 
 ### 在vscode编辑试卷
-我们提供了 VS Code 扩展方便编辑者预览页面，请在 VS Code 扩展商店安装 [BYR Docs Wiki Tools](https://marketplace.visualstudio.com/items?itemName=byrdocs.byrdocs-wiki-vscode)。该扩展只有在你当前已打开进入 byrdocs-neowiki 文件夹时才会启用。
+我们提供了 VS Code 扩展方便编辑者预览页面，请在 VS Code 扩展商店安装 [BYR Docs Wiki Tools](https://marketplace.visualstudio.com/items?itemName=byrdocs.byrdocs-wiki-vscode)。该扩展只有在你当前已打开进入 byrdocs-neowiki 文件夹时才会启用，请确保你的vscode所在根目录为byrdocs-neowiki。
+
+![root](./root.png)
+
+另外，如果你当前处于受限模式，请设置信任该文件夹，否则无法使用扩展。或者在设置中找到`Security>Workspace>Trust:Enabled`将其永久关闭。
+
+![trust1](./trust1.png)
+
+![trusr2](./trust2.png)
+
+![setting](./setting.jpg)
+
+同时推荐安装MDX扩展，会显示语法高亮，方便编辑。
+
+![mdx1](./mdx1.png)
+![mdx2](./mdx2.png)
 
 打开 byrdocs-neowiki 文件夹。在编辑试题时，我们只需要关注其中的 `exams/` 目录即可。
 
