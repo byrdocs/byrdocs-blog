@@ -28,10 +28,10 @@ author: cppHusky
 
 - [BYR Docs 主站](https://byrdocs.org)是我们的主阵地，提供电子书、考试题目和其它资料的直接下载。主站布署于 Cloudflare Worker 中，其文件全部存储于 Cloudflare R2 对象存储服务器中，而可供检索的元信息保存于 [GitHub 仓库](https://github.com/byrdocs/byrdocs-archive)中。
   - [BYR Docs Publish](https://publish.byrdocs.org)附属于主站，实现上传功能。它为一般用户提供更好的文件上传及元信息填写、提交服务。Publish 布署于 Cloudflare Worker 中。
-- [维基真题](https://wiki.byrdocs.org)是主站试题部分的延伸，提供可编辑性更强的试题库，允许用户以更零碎的方式贡献试题和答案。维基真题布署于自托管的 MediaWiki 服务器中。
+- [维基真题](https://wiki.byrdocs.org)是主站试题部分的延伸，提供可编辑的试题库，允许用户以更零散的方式贡献试题和答案。维基真题布署于 Cloudflare Page 中。
 - [BUPT 生存指南](https://guide.byrdocs.org)是另一个独立项目，提供北京邮电大学两校区的生活学习指南，以帮助新生更好地适应学校环境。生存指南布署于 Cloudflare Page 中。
 
-BYR Docs 的几个项目之间都是较为独立的，不存在很强的依赖关系。比如说，你可以只fork [BUPT 生存指南的仓库](https://github.com/byrdocs/bupt-survival-guide)，做成一个单独的生存指南网站；你也可以只下载维基真题的数据库及服务器文件，做成一个单独的维基网站；当然，只搭建主站而抛弃维基也是完全可行的，只不过会缺少一部分来自维基的题目；只搭建主站而不搭建 Publish 也没关系，只是文件上传和元信息录入会有些麻烦。
+BYR Docs 的几个项目之间都是较为独立的，不存在很强的依赖关系。比如说，你可以只fork [BUPT 生存指南的仓库](https://github.com/byrdocs/bupt-survival-guide)，做成一个单独的生存指南网站；你也可以只使用维基真题的源代码，做一个单独的维基网站；当然，只搭建主站而抛弃维基也是完全可行的，只不过会缺少一部分来自维基的题目；只搭建主站而不搭建 Publish 也没关系，只是文件上传和元信息录入会有些麻烦。
 
 不过，Publish 必须配合主站搭建，否则便没有意义。
 
@@ -139,6 +139,8 @@ npx wrangler login
     PUBLISH_SITE_URL="https://publish.byrdocs.org"
     # BYR Docs Publish 的测试地址
     PUBLISH_DEV_SITE_URL="http://localhost:3000"
+    # BYR Docs Wiki 的域名
+    WIKI_SITE_URL="https://wiki.byrdocs.org"
     # 测试用的网站域名
     DEV_SITE_URL="https://byrdocs.cpphusky.workers.dev"
     # 你的 byrdocs-archive 对应的 GitHub 仓库
@@ -164,8 +166,8 @@ npx wrangler secret bulk .dev.vars
     - 文件附属的 `.jpg` 文件，用于大图预览。
 - BYR Docs 的数据文件位于另一个 Cloudflare R2 存储桶内，有且只有 5 个：
     - `metadata.json` 记录 `byrdocs-file` 中文件的信息，以供后台处理。
-    - `wiki.json` 记录 [维基真题](#维基真题) 的文件信息，以供后台处理。如果你无意搭建维基真题，可以删除不使用它，也可以直接写一个空数组 `[]`。
     - `book.yaml` `test.yaml` `doc.yaml` 都来自 [byrdocs-archive 仓库](https://github.com/byrdocs/byrdocs-archive/tree/master/schema)。
+    - `sitemap.xml` 用于为搜索引擎提供索引，它是随着有关GitHub Workflow自动生成和上传的，你无需手动准备。
 - 另外，建议你准备一个备份存储桶，以防不测。
     - 你只需要存储资源文件中的 `.zip` 和 `.pdf` 文件，因为 `.webp` `.jpg` 文件都是由前者生成的，无需专门存储。
 
@@ -364,150 +366,43 @@ git push origin main --force-with-lease
 
 ## 维基真题
 
-维基真题使用 [MediaWiki 软件](https://www.mediawiki.org/wiki/MediaWiki) 搭建而成，配合 Nginx 和 MariaDB，布署在自托管的服务器中。它的搭建过程需要较多繁琐的配置，包括 Nginx、PHP-FPM、MariaDB 等多个方面。
+维基真题基于 [Astro](https://astro.build/) 搭建搭建，可以快捷、简单地生成内容呈现网站。无论要在本地搭建，还是使用 Pages 服务，都十分方便。
 
-为了降低布署难度，简化操作流程，我推荐使用 MediaWiki 官方提供的 Docker 镜像进行容器化布署；当然，你也可以参考 [MediaWiki 的安装文档](https://www.mediawiki.org/wiki/Manual:Installing_MediaWiki)，探索如何在裸机上进行布署。
+你可以选择使用自托管服务器或 Cloudflare Pages （及其它 Pages 服务）搭建本站。不过一般来说，即便你选择了 Pages 服务，为了测试网站效果，本地搭建和预览也是必要的。
 
 ### 所需资料
 
-- 一个压缩的数据库文件 `wikibackup.sql.gz`，包含用户数据、站点内容等诸多信息。
-- 一个压缩的维基文件夹 `wikifolder.tar.gz`，包含配置文件 `LocalSettings.php` 及扩展、媒体文件和资源文件。
+维基真题的全部文件是一个 [GitHub 仓库](https://github.com/byrdocs/byrdocs-neowiki)，你可直接 [Fork 该仓库](https://github.com/byrdocs/byrdocs-neowiki/fork)。
 
-你可以通过以下 Bash 命令将其解压，得到 `wikibackup.sql` 及 `wikifolder/`：
+### 本地搭建
 
+需要安装 [Node.js](https://nodejs.org) 及 [pnpm](https://pnpm.io/)。
+
+1. 将该仓库内容克隆到本地，打开所在目录。
+2. 下载依赖。
 ```bash
-gzip -d wikibackup.sql.gz # 得到 wikibackup.sql，原文件不保留
-tar -xzf wikifolder.tar # 得到 wikifolder/
+pnpm i
 ```
-
-其它解压工具也可。
-
-### 所需环境
-
-- 一台安装了 [Docker Compose](https://github.com/docker/compose) 的计算机。
-
-### 搭建步骤
-
-1. 在你认为合适的位置建立一个任意名称的目录，比如 `wiki.byrdocs/`。
-2. 在 `wiki.byrdocs/` 目录内编写 `compose.yaml`。这里仅提供示例代码，建议你自行修改 `services.database.environment` 中的 `MYSQL_DATABASE` `MYSQL_USER` `MYSQL_PASSWORD` 三项。
-```yaml
-services:
-  mediawiki:
-    # 维基真题使用的 MediaWiki 版本为 1.43；随着时间推移，你需要自行升级 MediaWiki 版本
-    image: mediawiki:1.43
-    restart: 'no'
-    # 你可自行修改站点的端口号，这里使用 8080
-    ports:
-      - 8080:80
-    links:
-      - database
-    volumes:
-      - ./wikifolder/extensions:/var/www/html/extensions
-      - ./wikifolder/images:/var/www/html/images
-      - ./wikifolder/resources:/var/www/html/resources
-      - ./wikifolder/LocalSettings.php:/var/www/html/LocalSettings.php
-  database:
-    image: mariadb:lts
-    restart: 'no'
-    environment:
-      MYSQL_DATABASE: my_wiki
-      MYSQL_USER: wikiuser
-      MYSQL_PASSWORD: example
-      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
-    volumes:
-      - ./db:/var/lib/mysql
-volumes:
-  extensions:
-  images:
-  resources:
-  db:
-```
-3. 将解压后的 `wikifolder/` 移动到 `wiki.byrdocs/` 目录下。
-4. 进入 `wiki.byrdocs/` 目录，并运行以下命令：
-```
-docker-compose up -d
-```
-5. 待镜像拉取完毕（只有首次拉取镜像时需要）且容器运行稳定（大约需要 10 秒）后，通过 `docker ps` 你可以看到两个新增的容器正在运行。例如在这里，`wikibyrdocs-mediawiki-1` 是服务器容器，`wikibyrdocs-database-1` 是数据库容器。
-```
-CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS                                     NAMES
-1b05fd4356fa   mediawiki:1.43   "docker-php-entrypoi…"   16 seconds ago   Up 16 seconds   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   wikibyrdocs-mediawiki-1
-7c27b51baf95   mariadb:lts      "docker-entrypoint.s…"   16 seconds ago   Up 16 seconds   3306/tcp                                  wikibyrdocs-database-1
-```
-6. 修改 `wikifolder/LocalSettings.php` 中的内容，以便正确配置 MediaWiki 服务。
-    1. `$wgServer` 改为 `http://[ip]:8080`。其中 `[ip]` 是你宿主机的 IP 地址（不能使用 `localhost` `127.0.0.1` 或 `::1`），端口号需要与你 `compose.yaml` 中指定的端口号相同。
-    2. `$wgDBserver` 改为数据库容器的名字，如 `wikibyrdocs-database-1`。
-    2. `$wgDBName` `$wgDBuser` `$wgDBpassword` 三项需要和你在 `compose.yaml` 中的配置保持一致。
-7. 接下来，通过以下步骤[导入数据库资料](https://www.mediawiki.org/wiki/Manual:Restoring_a_wiki_from_backup#Import_the_database_backup)。
-    1. 将 sql 文件拷贝到容器内部。
-    ```bash
-    docker cp wikibackup.sql wikibyrdocs-database-1:/root/
-    ```
-    2. 进入容器内部进行操作。
-    ```bash
-    docker exec -it wikibyrdocs-database-1 bash
-    ```
-    3. 先销毁原有的数据库。其中的用户名、数据库名和密码与先前写在 `compose.yaml` 中的相同。
-    ```bash
-    mariadb-admin -u wikiuser -p drop my_wiki
-    ```
-    4. 新建空数据库 `my_wiki`。
-    ```bash
-    mariadb-admin -u wikiuser -p create my_wiki
-    ```
-    5. 向 `my_wiki` 中导入数据。
-    ```bash
-    mariadb -u wikiuser -p my_wiki < /root/wikibackup.sql
-    ```
-    6. 退出容器。
-    ```bash
-    exit
-    ```
-8. 重启服务。
+3. 启动开发服务器。访问 `http://localhost:4321`，你可以看到网站的内容，并使用一些基本功能。在 `dev` 模式下，这个网站会随着你的文档代码更新而热加载。
 ```bash
-docker-compose restart
+pnpm dev # 开始 dev 预览模式
 ```
-9. 最后，通过浏览器访问 `http://localhost:8080/w/首页`，你可以看到维基真题的完整网页（如果你是在远程布署的，请将 IP 地址换作你远程主机的 IP）。
-
-### 后续维护
-
-#### 行政员
-
-MediaWiki 系统需要至少存在一名**行政员**，才能为其它用户授予各类用户组权限。新站长可向旧站[行政员列表](https://wiki.byrdocs.org/index.php?title=%E7%89%B9%E6%AE%8A:%E7%94%A8%E6%88%B7%E5%88%97%E8%A1%A8&group=bureaucrat)中的任何一位索取管理员、行政员及其它用户组权限。（若链接失效，请发邮咨询 cpphusky@gmail.com）。
-
-行政员直接关系到全部用户权限的授予和剥夺，请谨慎使用你的权限！
-
-#### 维基真题元信息
-
-
-#### 维基真题备份
-
-> 主条目：[Manual:Backing up a wiki - MediaWiki](https://www.mediawiki.org/wiki/Manual:Backing_up_a_wiki)
-
-你可能像我一样，会在某一天将维基真题的资料打包好，交付给下一位站长。你需要为他准备的内容一如我为你准备的内容：
-
-- 一个 `wikibackup.sql.gz` 数据库文件；
-- 一个 `wikifolder.tar.gz` 维基文件夹。
-
-即便你尚无打算转手维基真题，定期备份也是个好习惯。
-
-1. 在进行备份之前，请先在 `wikifolder/LocalSettings.php` 中添加一行
-```php
-$wgReadOnly = 'MediaWiki维护中，请注意保存你的更改，以待给护结束后提交。';
-```
-2. 重启服务：
+4. 注意，不是所有功能都能在预览模式下测试。如果你需要，请构建完整网页并使用它的全部功能。
 ```bash
-docker compose restart
+pnpm build # 此时网页代码将被编译至 `dist/` 中
+pnpm preview # 本地查看，也可加 --host 暴露给公网
 ```
-3. 通过 `mariadb-dump` 生成数据库文件：
-```bash
-mariadb-dump -h localhost -u wikiuser -p --default-character-set=utf8 my_wiki > /root/wikibackup.sql
-gzip /root/wikibackup.sql # 通过压缩减小其体积，得到 wikibackup.sql.gz
-# 将该文件从容器中拷贝出来即可
-```
-4. 维基文件夹可以直接打包宿主机内的 `wiki.byrdocs/wikifolder/` 目录得到：
-```bash
-tar -czf wikifolder.tar.gz wikifolder/ # 得到 wikifolder.tar.gz
-```
+
+### 使用 Cloudflare Pages 搭建
+
+需要拥有一个 [Cloudflare 账号](https://dash.cloudflare.com)。如果只需搭建维基真题，你无需付费或填写任何付款方式。
+
+1. 开始[通过 GitHub 布署](https://dash.cloudflare.com/?to=/:account/pages/new/provider/github)。初次使用时，你可能需要绑定一个 GitHub 账号。绑定账号之后，从该账号名下的全部仓库中选择你的仓库，然后点击右下角 *Begin setup*。
+2. 在配置列表中，需要指定 *Framework preset* 为 **Astro**，*Build command* 为 `pnpm build`，*Build output directory* 为 `dist`，其它配置可以自行修改。配置完毕后点击右下角 *Save and Deploy*，开始部署你的网站。
+![Set up builds and deployments](./set-up-builds-and-deployments.png)
+3. 等待 Cloudflare 布署完毕，而后你可以查看该网站。
+
+此时该 Page 已经与你绑定的 GitHub 仓库建立连接。每当 GitHub 仓库发生更新时，该 Page 都会获取更新并重新布署，非常方便。
 
 ## BUPT 生存指南
 
@@ -546,7 +441,7 @@ pnpm preview # 本地查看，也可加 --host 暴露给公网
 
 1. 开始[通过 GitHub 布署](https://dash.cloudflare.com/?to=/:account/pages/new/provider/github)。初次使用时，你可能需要绑定一个 GitHub 账号。绑定账号之后，从该账号名下的全部仓库中选择你的仓库，然后点击右下角 *Begin setup*。
 2. 在配置列表中，需要指定 *Framework preset* 为 **Astro**，*Build command* 为 `pnpm build`，*Build output directory* 为 `dist`，其它配置可以自行修改。配置完毕后点击右下角 *Save and Deploy*，开始部署你的网站。
-![Set up builds and deployments](./survival-set-up-builds-and-deployments.png)
+![Set up builds and deployments](./set-up-builds-and-deployments.png)
 3. 等待 Cloudflare 布署完毕，而后你可以查看该网站。
 
 此时该 Page 已经与你绑定的 GitHub 仓库建立连接。每当 GitHub 仓库发生更新时，该 Page 都会获取更新并重新布署，非常方便。
