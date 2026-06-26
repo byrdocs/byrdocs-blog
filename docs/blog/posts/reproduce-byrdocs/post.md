@@ -410,12 +410,12 @@ pnpm preview # 本地查看，也可加 --host 暴露给公网
 
 在 `/wiki.json` 路径下你可以看到一系列试题元信息。如果你需要搭建主站，主站会使用这些信息查询并列出维基真题的页面。
 
-你可以在 `.env` 中填写构建时环境变量，格式如下，请依实际情况自行更改：
+如果你需要在本地搭建，你可以在 `.env` 中填写构建时环境变量，格式如下，请依实际情况自行更改：
 ```ini
 WIKI_SITE_URL=https://wiki.byrdocs.org
 ```
 
-同理，你也需要把这个环境变量录入到 Cloudflare Pages 中。打开你的 Pages 项目，找到 *Settings* -> *Variables and secrets*，点击 *Add*，填入变量名和值，然后点击 *Save* 保存即可。
+如果你需要在 Cloudflare Pages 中搭建，请修改 `wrangler.toml` 中的 `WIKI_SITE_URL` 一项，再进行布署。
 
 ## BUPT 生存指南
 
