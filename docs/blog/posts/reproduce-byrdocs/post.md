@@ -114,10 +114,12 @@ npx wrangler login
 7. 填写环境变量。你需要准备以下两个文件：
     1. `.env` 定义了构建时用到的环境变量，格式如下，请依实际情况自行更改。
     ```ini
+    # BYR Docs 的域名
+    BYRDOCS_SITE_URL=https://byrdocs.org
     # BYR Docs Publish 的域名
-    PUBLISH_SITE_URL = "https://publish.byrdocs.org"
+    PUBLISH_SITE_URL=https://publish.byrdocs.org
     # 你的 byrdocs-archive 对应的 GitHub 仓库
-    ARCHIVE_REPO_URL = "https://github.com/byrdocs/byrdocs-archive"
+    ARCHIVE_REPO_URL=https://github.com/byrdocs/byrdocs-archive
     ```
     2. `.dev.vars` 定义了 Cloudflare 后端用到的环境变量，格式如下，请依实际情况自行更改。
     ```ini
@@ -403,6 +405,17 @@ pnpm preview # 本地查看，也可加 --host 暴露给公网
 3. 等待 Cloudflare 布署完毕，而后你可以查看该网站。
 
 此时该 Page 已经与你绑定的 GitHub 仓库建立连接。每当 GitHub 仓库发生更新时，该 Page 都会获取更新并重新布署，非常方便。
+
+### 完善 wiki.json
+
+在 `/wiki.json` 路径下你可以看到一系列试题元信息。如果你需要搭建主站，主站会使用这些信息查询并列出维基真题的页面。
+
+你可以在 `.env` 中填写构建时环境变量，格式如下，请依实际情况自行更改：
+```ini
+WIKI_SITE_URL=https://wiki.byrdocs.org
+```
+
+同理，你也需要把这个环境变量录入到 Cloudflare Pages 中。打开你的 Pages 项目，找到 *Settings* -> *Variables and secrets*，点击 *Add*，填入变量名和值，然后点击 *Save* 保存即可。
 
 ## BUPT 生存指南
 
