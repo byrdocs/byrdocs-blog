@@ -35,7 +35,7 @@ function getMarkdownFiles(directory: string, baseDir: string): string[] {
     if (entry.isDirectory())
       return getMarkdownFiles(fullPath, baseDir)
     else if (entry.isFile() && fullPath.endsWith('.md'))
-      return path.relative(baseDir, fullPath)
+      return path.relative(baseDir, fullPath).split(path.sep).join('/')
     return []
   })
 }
