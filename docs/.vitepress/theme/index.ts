@@ -8,6 +8,7 @@ import Post from './components/blog/Post.vue'
 import PostDetail from './components/blog/PostDetail.vue'
 import PostIcon from './components/blog/PostIcon.vue'
 import PostAuthor from './components/blog/PostAuthor.vue'
+import ChatMessage from './components/blog/ChatMessage.vue'
 
 export default {
   ...DefaultTheme,
@@ -18,5 +19,6 @@ export default {
     app.component('PostDetail', PostDetail)
     app.component('PostIcon', PostIcon)
     app.component('PostAuthor', PostAuthor)
+    app.component('ChatMessage', ChatMessage)
   },
 }
