@@ -33,13 +33,13 @@ author: Shxiao101
 <ChatMessage sender="同学甲">
 @byrdocs 沙河是几人间？
 </ChatMessage>
-<ChatMessage sender="byrdocs" isBot avatar="./byrdocs-avatar.svg" replyingTo="@byrdocs 沙河是几人间？">
+<ChatMessage sender="byrdocs" isBot avatar="/byrdocs-avatar.svg" replyingTo="@byrdocs 沙河是几人间？">
 沙河校区宿舍一般是四人间（上床下桌、独卫、层浴），仅2025级学生存在部分六人间。
 </ChatMessage>
 <ChatMessage sender="同学乙">
 @byrdocs 怎么转专业？
 </ChatMessage>
-<ChatMessage sender="byrdocs" isBot avatar="./byrdocs-avatar.svg" replyingTo="@byrdocs 怎么转专业？">
+<ChatMessage sender="byrdocs" isBot avatar="/byrdocs-avatar.svg" replyingTo="@byrdocs 怎么转专业？">
 本科生可在第二学期初、第三学期初申请转专业，第一次未成功可再申请；学校一般在假期（而非开学后）发布通知，要多留意信息门户。北邮不设转出限制，能否成功取决于转入学院是否接收：人工智能学院、计算机学院有机试加面试，其他学院一般只有面试。中外合作办学（国际学院、海南学院）及艺术类转业不允许转。
 </ChatMessage>
 
@@ -49,7 +49,7 @@ author: Shxiao101
 请问什么时候军训？
 </ChatMessage>
 
-<ChatMessage sender="byrdocs" isBot avatar="./byrdocs-avatar.svg" replyingTo="请问什么时候军训？">
+<ChatMessage sender="byrdocs" isBot avatar="/byrdocs-avatar.svg" replyingTo="请问什么时候军训？">
 军训一般两周（14天），时间每年不同，以学校通知为准。近年参考：24级为2024年8月24日-9月6日，25级为2026年5月6日-5月19日。详细见 <a>https://go.byrdocs.org/7CyiMPi</a>。
 </ChatMessage>
 
@@ -61,7 +61,7 @@ author: Shxiao101
 @byrdocs 有没有《数学分析（上）》的往年题？
 </ChatMessage>
 
-<ChatMessage sender="byrdocs" isBot avatar="./byrdocs-avatar.svg" replyingTo="有没有《数学分析（上）》的往年题？">
+<ChatMessage sender="byrdocs" isBot avatar="/byrdocs-avatar.svg" replyingTo="有没有《数学分析（上）》的往年题？">
 找到11份相关试卷，按时间从新到旧展示前3份：<br/>
 一、2025-2026第一学期 数学分析（上）期末试卷：<a>https://go.byrdocs.org/4qqN30V</a><br/>
 二、2025-2026第一学期 数学分析（上）期中试卷：<a>https://go.byrdocs.org/8bKbgPF</a><br/>
@@ -81,7 +81,7 @@ bot 会根据你的描述整理修改内容，并向生存指南的 GitHub 仓�
 @byrdocs 毕业之后还能刷校园卡进校门吗？
 </ChatMessage>
 
-<ChatMessage sender="byrdocs" isBot avatar="./byrdocs-avatar.svg" replyingTo="@byrdocs 毕业之后还能刷校园卡进校门吗？">
+<ChatMessage sender="byrdocs" isBot avatar="/byrdocs-avatar.svg" replyingTo="@byrdocs 毕业之后还能刷校园卡进校门吗？">
 毕业后校园卡会被统一注销（作为纪念品留存），不能再刷校园卡进门；校园网账号也会同步注销。返校如需入校，可按校外人员通过网上服务大厅预约进校。
 </ChatMessage>
 
@@ -89,7 +89,7 @@ bot 会根据你的描述整理修改内容，并向生存指南的 GitHub 仓�
 @byrdocs 可以申请校友卡
 </ChatMessage>
 
-<ChatMessage sender="byrdocs" isBot avatar="./byrdocs-avatar.svg" replyingTo="@byrdocs 可以申请校友卡">
+<ChatMessage sender="byrdocs" isBot avatar="/byrdocs-avatar.svg" replyingTo="@byrdocs 可以申请校友卡">
 谢谢补充！校友卡应该是毕业生返校的重要途径，方便告诉我更多细节吗：校友卡如何申请、在哪里办理、主要用途（能否刷卡进校）？确认后我可以整理成文档修改建议供你核对。
 </ChatMessage>
 
@@ -97,7 +97,7 @@ bot 会根据你的描述整理修改内容，并向生存指南的 GitHub 仓�
 @byrdocs 在“北邮人”小程序申请，给保安看就行
 </ChatMessage>
 
-<ChatMessage sender="byrdocs" isBot avatar="./byrdocs-avatar.svg" replyingTo="@byrdocs 在“北邮人”小程序申请，给保安看就行">
+<ChatMessage sender="byrdocs" isBot avatar="/byrdocs-avatar.svg" replyingTo="@byrdocs 在“北邮人”小程序申请，给保安看就行">
 明白了。我整理一下修改说明供你核对：<br/>
 拟在生存指南中补充“毕业后校园卡注销，但可申请校友卡”：毕业生可在“北邮人”小程序申请校友卡，返校进校门时向保安出示即可。<br/>
 拟放入“未尽事宜”章节（毕业后相关事项）。<br/>
@@ -108,7 +108,7 @@ bot 会根据你的描述整理修改内容，并向生存指南的 GitHub 仓�
 @byrdocs 确认
 </ChatMessage>
 
-<ChatMessage sender="byrdocs" isBot avatar="./byrdocs-avatar.svg" replyingTo="@byrdocs 确认">
+<ChatMessage sender="byrdocs" isBot avatar="/byrdocs-avatar.svg" replyingTo="@byrdocs 确认">
 已收到文档修改请求，任务已进入修改流程。<br/>
 任务ID：6dc8b37d-2508-452b-bbde-6179843f6adc<br/>
 之后可以在当前群询问文档修改任务状态。
