@@ -3,6 +3,8 @@ date: 2026-8-6 16:00
 title: 新项目：byrdocs 机器人
 category: 公告
 author: Shxiao101
+tags:
+    - 主站公告
 
 ---
 
