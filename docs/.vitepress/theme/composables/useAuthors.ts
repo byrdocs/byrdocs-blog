@@ -23,6 +23,13 @@ const data: Author[] = [
     data: {
       avatar: 'https://avatars.githubusercontent.com/u/222913928?v=4',
     },
+  },
+  {
+    name: 'Rikka',
+    href: 'https://github.com/NoNormalCreeper/',
+    data: {
+      avatar: 'https://avatars.githubusercontent.com/u/40710015?v=4',
+    },
   }
 ]
 
