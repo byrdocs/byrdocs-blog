@@ -184,12 +184,13 @@ npx skills add byrdocs/byrdocs-cli-envolved
 
 ### 编辑指南
 
-Skills 只是一个新的更简单的入口，依然以原先的编辑指南为准。希望深度了解的读者可以阅读主站贡献规则和 Neowiki 编辑指南：
+Skills 只是一个新的更简单的入口，依然以原先的编辑指南为准。希望深度了解的读者可以阅读主站贡献指南和 Neowiki 编辑指南：
 
-- [主站规则文档 - GitHub](https://github.com/byrdocs/byrdocs-archive/tree/master/docs)
+- [主站元信息/文件规则 - GitHub](https://github.com/byrdocs/byrdocs-archive/tree/master/docs)
 - [主站贡献指南 - GitHub](https://github.com/byrdocs/byrdocs-archive/blob/master/CONTRIBUTING.md)
-- [如何在维基真题整理试题？ - BYR Docs Blog](https://blog.byrdocs.org/blog/posts/how-to-contribute-to-neowiki/post)
 - [BYR Docs 维基真题编辑指南](https://wiki.byrdocs.org/guide/)
+- [如何在维基真题整理试题？ - BYR Docs Blog](https://blog.byrdocs.org/blog/posts/how-to-contribute-to-neowiki/post)
+
 
 
 
