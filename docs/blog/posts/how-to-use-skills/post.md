@@ -1,7 +1,7 @@
 ---
 date: 2026-8-12 12:56
 title: 让 Agent 帮你使用和参与建设 BYR Docs
-category: 介绍
+category: 指引
 author: Rikka
 
 ---
@@ -28,7 +28,7 @@ BYR Docs Skills 是面向 Agent 的资料服务与内容协作入口。它不仅
 
 - 你常用的 Agent 客户端，以及配置好的提供商（provider），能正常进行对话。下文以大家比较喜欢的 [Claude Code](https://claude.com/product/claude-code) CLI [配合 DeepSeek-V4-Pro](https://api-docs.deepseek.com/zh-cn/quick_start/agent_integrations/claude_code/) 为例。
 - [Node.js](https://nodejs.org) 环境，用于安装 BYR Docs CLI 和运行 Skills 安装脚本。如果你安装过了 Agent CLI，那么你大概率是有的。
-- 如果需要贡献，那么需要参照前言中的贡献指引链接进行对应的配置。你也可以让 Agent 代劳，贡献 Skills 运行的时候也会帮你进行检查和指引安装。
+- 如果需要贡献，那么需要参照前言中的贡献指引链接进行对应的配置。你也可以让 Agent 代劳，或者等贡献 Skills 运行的时候帮你进行检查和指引安装。
 
 ### 安装 BYR Docs Skills
 
@@ -96,6 +96,8 @@ npx skills add byrdocs/byrdocs-cli-envolved
 
 ![alt text](image-8.png)
 
+看到了类似“成功加载 skill”的提示就可以放心了，说明是可用的。
+
 一般来说，搜索会读取并调用相关的 API，同意即可。
 
 ![alt text](image-9.png)
@@ -108,9 +110,80 @@ npx skills add byrdocs/byrdocs-cli-envolved
 
 ![alt text](image-13.png)
 
----
+### 贡献试题维基
 
-[^1]: 基于 npm 包 [`skills`](https://www.npmjs.com/package/skills) 安装
+手工贡献试题维基则是比较复杂的流程，该 Skills 包含了各流程需要注意的事项和规范，以让 Agent 更好地进行工作。但很有可能仍会存在纰漏，以维护者和 reviewer 的意见为准。
+
+下面以一个从 Typst 项目整理试题到 Wiki 的过程为例，展示贡献流程。来源可以是多样的，无论是记忆、手写或是 PDF 等，只要你的 Agent 支持读取就可以。该 Skills 只是提供了项目知识和工作流程，指导你的 Agent 进行处理。
+
+> 我想要给 byrdocs 贡献试题，<https://github.com/renhao12356578/bupt-cs-exam--summary/tree/main/%E7%8E%B0%E4%BB%A3%E4%BA%A4%E6%8D%A2%E5%8E%9F%E7%90%86-%E5%BE%80%E5%B9%B4%E9%A2%98> 这个 typst 源码里面的 2017 年试题，请完成。
+
+首先会自动读取工作方式和进行文件查重，会从 GitHub、网页或者本地读取一些文件，需要检查后同意。
+
+![alt text](image-16.png)
+
+为此，可能会使用 `gh` CLI 访问 GitHub 的一些 API，如果没有登录或者没安装该 CLI，根据 Agent 的指引进行操作即可。
+
+获取到足够的信息后，Agent 会开始编写文件等工作，成功后会自动进行验证命令（可能时间较长），此时可能需要检查审批。
+
+![alt text](image-14.png)
+
+编辑完成后，建议人工检查是否存在明显错误、是否符合贡献要求、是否忠于来源，检查完后按照指引进行下一步的提交。
+
+![alt text](image-17.png)
+
+例如此处发现 `gh` CLI 并没有登录，需要按照它说的，在一个新的终端运行 `gh auth login` 登录。典型的登录流程是指定 git 凭据（下面以 SSH 为例）[^2]，然后浏览器访问给定的 URL，用终端显示的 Device Code（如本处是 `9E80-E5E0`）登录认证[^3]。
+
+![alt text](image-18.png)
+
+成功后如下图所示，然后就可以让 Agent 继续了：
+
+![alt text](image-19.png)
+
+如果 fork 不存在，允许它创建后继续操作：
+
+![alt text](image-20.png)
+
+注意到此处它检查到并提示我有重复的分支，是之前的测试残留，被忽略了。实际上操作的时候应该注意是否存在重复，先进行查重。查重也可以通过 Agent 进行操作，此处不展开说明：
+
+![alt text](image-21.png)
+
+检查完 commit 和 PR 内容的正确性，便可以允许提交 PR：
+
+![alt text](image-22.png)
+
+![alt text](image-23.png)
+
+需要注意的是，如果限定不明确，Agent 可能会出现自作聪明脑补答案甚至虚构题干的问题——他不知道当下是什么贡献场景、资料可信度有多高等。因此，在贡献时，最好限定对于来源的使用方式。例如：
+
+- （文件整理场景）你需要完全照抄给定资料中题干和给定的答案解析，不要自行解释、理解、阐发。
+- （试题回忆场景）你只能补全给定的回忆版题干限定背景，必须完全照抄给定的答案，不要自己补充解释，不要修改已有的题干条件。
+- “保持 xxx 表述不变”、“保持第 x 题答案空缺”、“就按照题目中给出的解释”等。
+
+提交完 PR 后，就可以在 GitHub 上查看该 PR 内容，等待自动化验证和维护者 review。如果有 requested changes，也可以继续让 Agent 读取并修改，或者自行修改：
+
+![alt text](image-24.png)
+
+至此，大致完成了对于试题维基新试题的整理和提交。修改、补答案、处理题图等操作也可以如法炮制。
+
+### 贡献主站文件
+
+与上面的流程相似，不同的是，Agent 会尝试自己从文件中读取或者推断元信息并录入。最终会解释它自动补全出的信息，并请求你检查，让你补全必填项。此处暂不多做演示。
+
+## 进一步阅读
+
+### 编辑指南
+
+Skills 只是一个新的更简单的入口，依然以原先的编辑指南为准。希望深度了解的读者可以阅读主站贡献规则和 Neowiki 编辑指南：
+
+- [在 BYR Docs 上整理一份资料](https://blog.byrdocs.org/blog/posts/how-to-organize-test/post.html)
+- [如何整理试题文件？](https://blog.byrdocs.org/blog/posts/how-to-contribute-to-neowiki/post)
+
+
+
+[^1]: 基于 npm 包 [`skills`](https://www.npmjs.com/package/skills) 安装。
+[^2]: 如果你平时会往 GitHub 进行推送（push）等操作，那你应该知道这是在说什么。如果不清楚，可参考：[Connecting to GitHub with SSH](<https://docs.github.com/en/authentication/connecting-to-github-with-ssh>)
+[^3]: 基于 OAuth 2.0 的 Device Authorization Grant。`gh` CLI 相关文档：<https://cli.github.com/manual/gh_auth_login>。
 
 
 </PostDetail>
