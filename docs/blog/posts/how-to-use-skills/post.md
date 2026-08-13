@@ -3,6 +3,8 @@ date: 2026-8-12 12:56
 title: 让 Agent 帮你使用和参与建设 BYR Docs
 category: 指引
 author: Rikka
+tags:
+    - 主站公告
 
 ---
 
